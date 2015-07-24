@@ -1,10 +1,15 @@
 package core;
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,8 +29,8 @@ public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String version = "1.1.1";
-	private String versionDate = "23.07.2015";
+	private String version = "1.3.0";
+	private String versionDate = "25.07.2015";
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -109,7 +114,7 @@ public class Main extends JFrame {
 			lblTitle_3.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblTitle_3.setBounds(0, 11, 490, 17);
 			bfme3.add(lblTitle_3);
-		
+			
 			JLabel lbltitle4 = new JLabel("Help");
 			lbltitle4.setHorizontalAlignment(SwingConstants.CENTER);
 			lbltitle4.setForeground(Color.WHITE);
@@ -176,31 +181,27 @@ public class Main extends JFrame {
 			JLabel lblHelp1 = new JLabel("It doesn't work for you?");
 			lblHelp1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp1.setForeground(Color.WHITE);
-			lblHelp1.setBounds(0, 55, 490, 17);
+			lblHelp1.setBounds(0, 69, 490, 17);
 			help.add(lblHelp1);
 			
 			JLabel lblHelp2 = new JLabel("You need additional help?");
 			lblHelp2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp2.setForeground(Color.WHITE);
-			lblHelp2.setBounds(0, 71, 490, 17);
+			lblHelp2.setBounds(0, 85, 490, 17);
 			help.add(lblHelp2);
 			
 			JLabel lblHelp3 = new JLabel("Contact me: MorgulLord29isback@gmail.com");
 			lblHelp3.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp3.setForeground(Color.WHITE);
-			lblHelp3.setBounds(0, 103, 490, 17);
+			lblHelp3.setBounds(0, 117, 490, 17);
 			help.add(lblHelp3);
 			
 			JLabel lblHelp4 = new JLabel("Version v" + version + " (" + versionDate + ") by MorCJul");
+			lblHelp4.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblHelp4.setForeground(Color.WHITE);
-			lblHelp4.setBounds(10, 207, 232, 16);
+			lblHelp4.setBounds(248, 207, 232, 16);
 			help.add(lblHelp4);
-			
-			JLabel lblHelp5 = new JLabel("Official Download: http://bit.ly/1KmgFXN");
-			lblHelp5.setForeground(Color.WHITE);
-			lblHelp5.setBounds(10, 184, 232, 21);
-			help.add(lblHelp5);
-			
+
 	//CB Resolutions
 		JComboBox<Object> cbRes1 = new JComboBox<Object>(resolutions);
 		cbRes1.setBounds(277, 99, 179, 39);
@@ -208,6 +209,7 @@ public class Main extends JFrame {
 		cbRes1.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbRes1.setSelectedItem(Auto.Resolution());
 		((JLabel)cbRes1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbRes1.setToolTipText("Setting your In-Game-Resolution higher than your current Desktop-Resolution will NOT work");
 		
 		JComboBox<Object> cbRes2 = new JComboBox<Object>(resolutions);
 		cbRes2.setBounds(277, 99, 179, 39);
@@ -215,6 +217,7 @@ public class Main extends JFrame {
 		cbRes2.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbRes2.setSelectedItem(Auto.Resolution());
 		((JLabel)cbRes2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbRes2.setToolTipText("Setting your In-Game-Resolution higher than your current Desktop-Resolution will NOT work");
 		
 		JComboBox<Object> cbRes3 = new JComboBox<Object>(resolutions);
 		cbRes3.setBounds(277, 99, 179, 39);
@@ -222,6 +225,7 @@ public class Main extends JFrame {
 		cbRes3.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbRes3.setSelectedItem(Auto.Resolution());
 		((JLabel)cbRes3.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbRes3.setToolTipText("Setting your In-Game-Resolution higher than your current Desktop-Resolution will NOT work");
 			
 	//CB Languages
 		JComboBox<Object> cbLan1 = new JComboBox<Object>(languages);
@@ -230,6 +234,7 @@ public class Main extends JFrame {
 		cbLan1.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbLan1.setSelectedItem(Auto.Language());
 		((JLabel)cbLan1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbLan1.setToolTipText("It is important that you select the Language of your Game-Installation, otherwise the fix will NOT work");
 		
 		JComboBox<Object> cbLan2 = new JComboBox<Object>(languages);
 		cbLan2.setBounds(30, 99, 177, 39);
@@ -237,6 +242,7 @@ public class Main extends JFrame {
 		cbLan2.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbLan2.setSelectedItem(Auto.Language());
 		((JLabel)cbLan2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbLan2.setToolTipText("It is important that you select the Language of your Game-Installation, otherwise the fix will NOT work");
 		
 		JComboBox<Object> cbLan3 = new JComboBox<Object>(languagesR);
 		cbLan3.setBounds(30, 99, 177, 39);
@@ -244,11 +250,13 @@ public class Main extends JFrame {
 		cbLan3.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		cbLan3.setSelectedItem(Auto.Language());
 		((JLabel)cbLan3.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		cbLan3.setToolTipText("It is important that you select the Language of your Game-Installation, otherwise the fix will NOT work");
 		
 	//Apply Changes
 		JButton button1 = new JButton("Apply changes");
 		button1.setBounds(176, 173, 132, 39);
 		bfme1.add(button1);
+		button1.setToolTipText("Generate or edit the Options.ini-File in your BFME-Folder");
 		button1.addActionListener(new ActionListener() {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
@@ -257,7 +265,7 @@ public class Main extends JFrame {
 		        resolution = resolution.replace('*', ' ');
 
 				try {
-					Ini.main1(resolution, language);
+					BFME1.main(resolution, language);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -267,6 +275,7 @@ public class Main extends JFrame {
 		JButton button2 = new JButton("Apply changes");
 		button2.setBounds(176, 173, 132, 39);
 		bfme2.add(button2);
+		button2.setToolTipText("Generate or edit the Options.ini-File in your BFME-Folder");
 		button2.addActionListener(new ActionListener() {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
@@ -275,16 +284,17 @@ public class Main extends JFrame {
 		        resolution = resolution.replace('*', ' ');
 		        
 				try {
-					Ini.main2(resolution, language);
+					BFME2.main(resolution, language);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
-		});			
+		});		
 		
 		JButton button3 = new JButton("Apply changes");
 		button3.setBounds(176, 173, 132, 39);
 		bfme3.add(button3);
+		button3.setToolTipText("Generate or edit the Options.ini-File in your BFME-Folder");
 		button3.addActionListener(new ActionListener() {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
@@ -293,12 +303,30 @@ public class Main extends JFrame {
 		        resolution = resolution.replace('*', ' ');
 		        
 				try {
-					Ini.main3(resolution, language);
+					BFME3.main(resolution, language);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});				
+		
+	//Update-Check
+		JButton update = new JButton("Check for updates");
+		update.setBounds(10, 194, 121, 29);
+		help.add(update);	
+		update.setToolTipText("Opens the Mediafire.com-Folder with the latest Version inside.");
+		update.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				URL myURL = null;
+				try {
+					myURL = new URL("http://bit.ly/1KmgFXN");
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				openWebpage(myURL);
+			}
+		});
 		
 	//Images
 		JLabel img1 = new JLabel();
@@ -320,5 +348,24 @@ public class Main extends JFrame {
 		imgHelp.setIcon(new ImageIcon(Main.class.getResource("/images/help.png")));
 		imgHelp.setBounds(0, 0, 490, 234);
 		help.add(imgHelp);
+	}
+	
+	public static void openWebpage(URI string) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(string);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	public static void openWebpage(URL url) {
+	    try {
+	        openWebpage(url.toURI());
+	    } catch (URISyntaxException e) {
+	        e.printStackTrace();
+	    }
 	}
 }
