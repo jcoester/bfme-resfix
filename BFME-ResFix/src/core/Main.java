@@ -5,7 +5,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,14 +26,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.ImageIcon;
 
-import java.awt.Color;
-
 public class Main extends JFrame {
-
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String version = "1.3.0";
+	private String version = "1.3.1";
 	private String versionDate = "25.07.2015";
+	private int game = 0;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -261,11 +263,10 @@ public class Main extends JFrame {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
 				String language = (String)cbLan1.getSelectedItem();
-		        String resolution = (String)cbRes1.getSelectedItem();
-		        resolution = resolution.replace('*', ' ');
-
+				String resolution = (String)cbRes1.getSelectedItem();
+		        game = 1;
 				try {
-					BFME1.main(resolution, language);
+					Ini.main(language, resolution, game);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -280,11 +281,10 @@ public class Main extends JFrame {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
 				String language = (String)cbLan2.getSelectedItem();
-		        String resolution = (String)cbRes2.getSelectedItem();
-		        resolution = resolution.replace('*', ' ');
-		        
+				String resolution = (String)cbRes2.getSelectedItem();
+		        game = 2;
 				try {
-					BFME2.main(resolution, language);
+					Ini.main(language, resolution, game);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -299,11 +299,10 @@ public class Main extends JFrame {
 			//ActionPerformed
 			public void actionPerformed(ActionEvent e) {
 				String language = (String)cbLan3.getSelectedItem();
-		        String resolution = (String)cbRes3.getSelectedItem();
-		        resolution = resolution.replace('*', ' ');
-		        
+				String resolution = (String)cbRes3.getSelectedItem();
+		        game = 3;
 				try {
-					BFME3.main(resolution, language);
+					Ini.main(language, resolution, game);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -321,7 +320,6 @@ public class Main extends JFrame {
 				try {
 					myURL = new URL("http://bit.ly/1KmgFXN");
 				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				openWebpage(myURL);
@@ -350,6 +348,7 @@ public class Main extends JFrame {
 		help.add(imgHelp);
 	}
 	
+	//Update Checker
 	public static void openWebpage(URI string) {
 	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {

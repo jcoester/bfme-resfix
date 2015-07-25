@@ -1,26 +1,10 @@
 package core;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import javax.swing.JOptionPane;
-
 public class BFME1 {
-	public static void main(String resolution, String language) throws IOException {
-		//Build Folder
-		String languagePath = buildLanguage(language);
-		String fullPath = Ini.buildPath(languagePath);
-		Ini.addFolder(fullPath);
-		
-		//Build or Edit Ini
-		buildIni(fullPath, resolution);
-	}
-	
 	public static String buildLanguage(String language) {
 		String languagePath = null;
 		
@@ -54,22 +38,6 @@ public class BFME1 {
 		return languagePath;
 	}
 	
-	public static void buildIni(String fullPath, String resolution) throws IOException {
-		String OptionsPath = fullPath + "\\Options.ini";
-		
-		File check = new File(OptionsPath);
-		if(check.exists() && !check.isDirectory()) {
-			//Editiere
-			editOptions(fullPath, resolution);
-			JOptionPane.showMessageDialog(null, "Done! (Edited Options.ini at: \"" + fullPath + "\")");
-		}
-		else if (!check.exists() && !check.isDirectory()) {
-			//Mache eine neue Datei
-			createOptions(fullPath, resolution);
-			JOptionPane.showMessageDialog(null, "Done! (Created Options.ini at: \"" + fullPath + "\")");
-		}
-	}
-	
 	public static void createOptions(String fullPath, String resolution) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer = new PrintWriter(fullPath + "\\Options.ini", "UTF-8");
 		writer.println("AllHealthBars = yes");
@@ -97,33 +65,4 @@ public class BFME1 {
 		writer.println("VoiceVolume = 70");
 		writer.close();	
 	}
-	
-	public static void editOptions(String fullPath, String resolution) throws IOException {
-		//Vorbereitung 
-		File f = new File(fullPath + "\\Options.ini");
-		FileReader fr = new FileReader(f);
-		BufferedReader br = new BufferedReader(fr);
-		String s = null;
-		String[] oldFile;
-		oldFile = new String[23];
-		
-		//Auslesen
-		for (int i = 0; (s=br.readLine())!=null; i++) {
-			oldFile[i] = new String(s);
-			//System.out.println(oldFile[i]);
-		}
-		br.close();
-		
-		//Überarbeiten
-		String newRes = ("Resolution = " + resolution);
-		oldFile[14] = new String(newRes);
-				
-		//Neu schreiben
-		PrintWriter writer = new PrintWriter(fullPath + "\\Options.ini", "UTF-8");		
-		for (int i = 0; i < oldFile.length; i++) {
-			writer.println(oldFile[i]);
-		}
-		writer.close();
-	}
-
 }
