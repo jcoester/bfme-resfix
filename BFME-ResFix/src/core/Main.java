@@ -30,8 +30,8 @@ public class Main extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String version = "1.3.1";
-	private String versionDate = "25.07.2015";
+	private String version = "1.4.0 Final";
+	private String versionDate = "26.07.2015";
 	private int game = 0;
 	
 	public static void main(String[] args) {
@@ -180,10 +180,10 @@ public class Main extends JFrame {
 			lblRes_13.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		//Help
-			JLabel lblHelp1 = new JLabel("It doesn't work for you?");
+			JLabel lblHelp1 = new JLabel("If you are using a notebook you might have to use your dedicated GPU.");
 			lblHelp1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp1.setForeground(Color.WHITE);
-			lblHelp1.setBounds(0, 69, 490, 17);
+			lblHelp1.setBounds(0, 51, 490, 17);
 			help.add(lblHelp1);
 			
 			JLabel lblHelp2 = new JLabel("You need additional help?");
@@ -198,7 +198,7 @@ public class Main extends JFrame {
 			lblHelp3.setBounds(0, 117, 490, 17);
 			help.add(lblHelp3);
 			
-			JLabel lblHelp4 = new JLabel("Version v" + version + " (" + versionDate + ") by MorCJul");
+			JLabel lblHelp4 = new JLabel("Version: " + version + " (" + versionDate + ") by MorCJul");
 			lblHelp4.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblHelp4.setForeground(Color.WHITE);
 			lblHelp4.setBounds(248, 207, 232, 16);
@@ -313,7 +313,7 @@ public class Main extends JFrame {
 		JButton update = new JButton("Check for updates");
 		update.setBounds(10, 194, 121, 29);
 		help.add(update);	
-		update.setToolTipText("Opens the Mediafire.com-Folder with the latest Version inside.");
+		update.setToolTipText("Opens the Mediafire.com-Folder with the latest version inside.");
 		update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				URL myURL = null;

@@ -47,19 +47,20 @@ public class BFME3 {
 		writer.println("AmbientVolume = 50.000000");
 		writer.println("AudioLOD = Low");
 		writer.println("Brightness = 50");
+		writer.println("FlashTutorial = 0");
 		writer.println("GameSpyIPAddress = 0");
 		writer.println("HasSeenLogoMovies = yes");
 		writer.println("IdealStaticGameLOD = VeryLow");
 		writer.println("MovieVolume = 70.000000");
 		writer.println("MusicVolume = 70.000000");
+		writer.println("Resolution = " + resolution);
 		writer.println("SFXVolume = 70.000000");
 		writer.println("ScrollFactor = 50");
 		writer.println("SendDelay = no");
-		writer.println("StaticGameLOD = High");
-		writer.println("TimesInGame = 105");
+		writer.println("StaticGameLOD = VeryLow");
+		writer.println("TimesInGame = 106");
 		writer.println("UseEAX3 = no");
 		writer.println("VoiceVolume = 70.000000");
-		writer.println("Resolution = " + resolution);
 		writer.close();	
 	}
 }

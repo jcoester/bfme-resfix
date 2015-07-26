@@ -55,7 +55,7 @@ public class BFME2 {
 		writer.println("ScrollFactor = 50");
 		writer.println("SendDelay = no");
 		writer.println("StaticGameLOD = Low");
-		writer.println("TimesInGame = 150");
+		writer.println("TimesInGame = 152");
 		writer.println("UseEAX3 = no");
 		writer.println("VoiceVolume = 70.000000");
 		writer.close();	

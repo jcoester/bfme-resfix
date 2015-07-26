@@ -54,7 +54,7 @@ public class Ini {
 					editOptions(fullPath, resolution, length);
 				}
 				else if (game == 3) {
-					length = 17;
+					length = 18;
 					editOptions(fullPath, resolution, length);
 				}
 				JOptionPane.showMessageDialog(null, "Done! (Edited Options.ini at: \"" + fullPath + "\")");
