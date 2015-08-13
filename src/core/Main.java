@@ -392,12 +392,12 @@ public class Main extends JFrame {
 	//Update-Check
 		update.setBounds(10, 194, 121, 29);
 		help.add(update);	
-		update.setToolTipText("https://www.mediafire.com/#5qvyz9eb03d7i");
+		update.setToolTipText("https://www.mediafire.com/folder/5qvyz9eb03d7i/BFME-Windows-Resolution-Fixer");
 		update.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				URL myURL = null;
 				try {
-					myURL = new URL("https://www.mediafire.com/#5qvyz9eb03d7i");
+					myURL = new URL("https://www.mediafire.com/folder/5qvyz9eb03d7i/BFME-Windows-Resolution-Fixer");
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				}
