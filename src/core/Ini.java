@@ -41,7 +41,11 @@ public class Ini {
 					BFME2.createOptions(fullPath, resolution);
 				else if (game == 3)
 					BFME3.createOptions(fullPath, resolution);
-				JOptionPane.showMessageDialog(null, "Done! (Created Options.ini at: \"" + fullPath + "\")");
+				
+				if (Main.getProLang() == 1)
+					JOptionPane.showMessageDialog(null, "Fertig! (Erzeugt: Options.ini in: \"" + fullPath + "\")");
+				else
+					JOptionPane.showMessageDialog(null, "Done! (Created: Options.ini at: \"" + fullPath + "\")");
 			}
 			//Edit
 			else if(check.exists() && !check.isDirectory()) {
@@ -57,7 +61,11 @@ public class Ini {
 					length = 18;
 					editOptions(fullPath, resolution, length);
 				}
-				JOptionPane.showMessageDialog(null, "Done! (Edited Options.ini at: \"" + fullPath + "\")");
+				
+				if (Main.getProLang() == 1)
+					JOptionPane.showMessageDialog(null, "Fertig! (Bearbeitet: Options.ini in: \"" + fullPath + "\")");
+				else 
+					JOptionPane.showMessageDialog(null, "Done! (Edited: Options.ini at: \"" + fullPath + "\")");
 			}
 		}
 		
