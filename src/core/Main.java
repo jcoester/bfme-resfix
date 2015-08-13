@@ -67,7 +67,7 @@ public class Main extends JFrame {
 	private JButton langDE;
 	private JButton langEN;
 
-	private String version = "Final 2";
+	private String version = "Final 2.1";
 	private String versionDate = "13.08.2015";
 	private int game = 0;
 	static int proLang = 0;
