@@ -97,7 +97,7 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/pic.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/icon.png")));
 	
 	//Datenbank		
 		String[] resolutions = {
@@ -458,9 +458,9 @@ public class Main extends JFrame {
 			setTitle("SUM - Windows & Auflösungs-Fixer");
 		
 		//Tab
-			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5>SUM I</body></html");
-			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5>SUM II</body></html");
-			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5>SUM II - ADH</body></html");
+			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM I</b></body></html");
+			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM II</b></body></html");
+			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM II - ADH</b></body></html");
 		
 		//Label
 			lblTitle_1.setText("Die Schlacht um Mittelerde I");
@@ -522,9 +522,9 @@ public class Main extends JFrame {
 			setTitle("BFME - Windows & Resolution-Fixer");
 		
 		//Tab
-			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5>BFME I</body></html");
-			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5>BFME II</body></html");
-			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5>BFME II - ROTWK</body></html");
+			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME I</b></body></html");
+			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME II</b></body></html");
+			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME II - ROTWK</b></body></html");
 		
 		//Label
 			lblTitle_1.setText("The Battle for Middle-earth I");
