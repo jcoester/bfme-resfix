@@ -30,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.awt.Toolkit;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -67,8 +68,8 @@ public class Main extends JFrame {
 	private JButton langDE;
 	private JButton langEN;
 
-	private String version = "Final 2.1";
-	private String versionDate = "13.08.2015";
+	private String version = "Final 2.2";
+	private String versionDate = "14.08.2015";
 	private int game = 0;
 	static int proLang = 0;
 
@@ -96,7 +97,8 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/pic.png")));
+	
 	//Datenbank		
 		String[] resolutions = {
 				Auto.Resolution(), "800*600", "1024*768", "1280*720", "1280*960", "1280*1024", "1366*768", "1400*1050", 
@@ -142,7 +144,6 @@ public class Main extends JFrame {
 		cbLan3 = new JComboBox<Object>(languagesR);
 		langDE = new JButton();
 		langEN = new JButton();
-		
 		
 	//Languages	
 		langDE.setBounds(460, 6, 30, 20);
