@@ -4,44 +4,47 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-public class BFME3 {
-	public static String buildLanguage(String language) {
+class BFME3 {
+	static String buildLanguage(String language) {
 		String languagePath = null;
 		
-		if (language.equals("Deutsch"))
+		switch (language) {
+		case "Deutsch":
 			languagePath = "/Meine Der Herr der Ringe™, Aufstieg des Hexenkönigs™-Dateien";
-		
-		else if (language.equals("English"))
+			break;
+		case "English":
 			languagePath = "/My The Lord of the Rings, The Rise of the Witch-king Files";
-		
-		else if (language.equals("Español"))
+			break;
+		case "Español":
 			languagePath = "/Mis archivos de El Señor de los Anillos, El Resurgir del Rey Brujo";
-		
-		else if (language.equals("Français"))
+			break;
+		case "Français":
 			languagePath = "/Mes fichiers de LSDA, L'Avènement du Roi-sorcier™";
-		
-		else if (language.equals("Italiano"))
+			break;
+		case "Italiano":
 			languagePath = "/File de Il Signore degli Anelli™ - L'Ascesa del Re Stregone™";
-		
-		else if (language.equals("Nederlands"))
+			break;
+		case "Nederlands":
 			languagePath = "/Mijn The Lord of the Rings, The Rise of the Witch-king-bestanden";
-		
-		else if (language.equals("Norsk"))
+			break;
+		case "Norsk":
 			languagePath = "/Mine Ringenes Herre - Heksekongen-filer";
-		
-		else if (language.equals("Polski"))
+			break;
+		case "Polski":
 			languagePath = "/Moje pliki gry Władca Pierścieni, Król Nazguli";
-		
-		else if (language.equals("Russian"))
+			break;
+		case "Russian":
 			languagePath = "/Властелин Колец, Под знаменем Короля-чародея - Мои файлы";
-		
-		else if (language.equals("Svenska"))
+			break;
+		case "Svenska":
 			languagePath = "/Mina Ringarnas herre™ - Häxkungens tid™-filer";
+			break;
+		}
 		
 		return languagePath;
 	}	
 	
-	public static void createOptions(String fullPath, String resolution) throws FileNotFoundException, UnsupportedEncodingException {
+	static void createOptions(String fullPath, String resolution) throws FileNotFoundException, UnsupportedEncodingException {
 		PrintWriter writer = new PrintWriter(fullPath + "\\Options.ini", "UTF-8");
 		writer.println("AllHealthBars = yes");
 		writer.println("AmbientVolume = 50.000000");

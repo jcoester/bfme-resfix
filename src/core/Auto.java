@@ -3,39 +3,50 @@ package core;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class Auto {
+class Auto {
 	static String Resolution() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
-		String currentRes = (width + "*" + height);
-		return currentRes;
+		return width + "*" + height;
 	}
 	
 	static String Language() {
-		String oslang = System.getProperty("user.language");
+		String osLang = System.getProperty("user.language");
 		String currentLang;
 		
-		if (oslang.equals("de")) 
+		switch (osLang) {
+		case "de":
 			currentLang = "Deutsch";
-		else if (oslang.equals("es"))
+			break;
+		case "es":
 			currentLang = "Español";
-		else if (oslang.equals("fr"))
+			break;
+		case "fr":
 			currentLang = "Français";
-		else if (oslang.equals("it"))
+			break;
+		case "it":
 			currentLang = "Italiano";
-		else if (oslang.equals("nl"))
+			break;
+		case "nl":
 			currentLang = "Nederlands";
-		else if (oslang.equals("no"))
+			break;
+		case "no":
 			currentLang = "Norsk";
-		else if (oslang.equals("pl"))
+			break;
+		case "pl":
 			currentLang = "Polski";
-		else if (oslang.equals("ru"))
+			break;
+		case "ru":
 			currentLang = "Russian";
-		else if (oslang.equals("sv"))
+			break;
+		case "sv":
 			currentLang = "Svenska";
-		else 
-			currentLang = "English";		
+			break;
+		default:
+			currentLang = "English";
+			break;
+		}			
 		return currentLang;
 	}
 }

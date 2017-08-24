@@ -3,8 +3,6 @@ package core;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
@@ -18,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -30,12 +29,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import java.awt.Toolkit;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 	private JLabel lblTitle_1;
 	private JLabel lblTitle_2;
@@ -68,10 +67,11 @@ public class Main extends JFrame {
 	private JButton langDE;
 	private JButton langEN;
 
-	private String version = "Final 2.2";
-	private String versionDate = "14.08.2015";
+	private String version = "Final 2.3";
+	private String versionDate = "24.08.2017";
+	
 	private int game = 0;
-	static int proLang = 0;
+	private static int proLang = 0;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -86,23 +86,23 @@ public class Main extends JFrame {
 		});
 	}
 
-	public Main() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-	//Frame
+	private Main() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	// Frame
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 300);
 		setResizable(false);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/images/icon.png")));
 	
-	//Datenbank		
+	// Database	
 		String[] resolutions = {
-				Auto.Resolution(), "800*600", "1024*768", "1280*720", "1280*960", "1280*1024", "1366*768", "1400*1050", 
-				"1440*960", "1600*900", "1600*1200", "1680*1050", "1920*1080", "1920*1200", "2560*1600", "3840*2160"
+				Auto.Resolution(), "800*600", "1024*768", "1280*720", "1366*768", "1600*900", "1600*1200", "1920*1080", "1920*1200", 
+				"2560*1080", "2560*1440", "3840*2160", "4096*2160", "7680*4320", "8192*4320"
         };
 		String[] languages = {
 				"Deutsch", "English", "Español", "Français", "Italiano",
@@ -113,7 +113,7 @@ public class Main extends JFrame {
 				"Nederlands", "Norsk", "Polski", "Russian", "Svenska"
         };
 		
-	//Initialize empty Labels
+	// Initialize empty Labels
 		lblTitle_1 = new JLabel("");
 		lblTitle_2 = new JLabel("");
 		lblTitle_3 = new JLabel("");
@@ -136,35 +136,27 @@ public class Main extends JFrame {
 		button1 = new JButton("");
 		button2 = new JButton("");
 		button3 = new JButton("");
-		cbRes1 = new JComboBox<Object>(resolutions);
-		cbRes2 = new JComboBox<Object>(resolutions);
-		cbRes3 = new JComboBox<Object>(resolutions);
-		cbLan1 = new JComboBox<Object>(languages);
-		cbLan2 = new JComboBox<Object>(languages);
-		cbLan3 = new JComboBox<Object>(languagesR);
+		cbRes1 = new JComboBox<>(resolutions);
+		cbRes2 = new JComboBox<>(resolutions);
+		cbRes3 = new JComboBox<>(resolutions);
+		cbLan1 = new JComboBox<>(languages);
+		cbLan2 = new JComboBox<>(languages);
+		cbLan3 = new JComboBox<>(languagesR);
 		langDE = new JButton();
 		langEN = new JButton();
 		
-	//Languages	
+	// Languages	
 		langDE.setBounds(460, 6, 30, 20);
 		contentPane.add(langDE);
 		langDE.setToolTipText("Sprache: Deutsch");
-		langDE.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setDeutsch();
-			}
-		});
+		langDE.addActionListener(arg0 -> setDeutsch());
 		
 		langEN.setBounds(425, 6, 30, 20);
 		contentPane.add(langEN);
 		langEN.setToolTipText("Language: English");
-		langEN.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setEnglish();
-			}
-		});
+		langEN.addActionListener(e -> setEnglish());
 		
-	//TabPane
+	// TabPane
 		tabbedPane.setBounds(0, 0, 495, 272);
 		contentPane.add(tabbedPane);
 		
@@ -184,14 +176,14 @@ public class Main extends JFrame {
 		tabbedPane.addTab("<html><body leftmargin=10 marginwidth=10 marginheight=5>?</body></html", null, help, null);
 		help.setLayout(null);
 	
-	//Initialize Language
-		if (Auto.Language() == "Deutsch")
+	// Initialize Language
+		if (Objects.equals(Auto.Language(), "Deutsch"))
 			setDeutsch();
 		else 
 			setEnglish();
 		
-	//Label
-		//Title
+	// Label
+		// Title
 			lblTitle_1.setForeground(Color.WHITE);
 			lblTitle_1.setBounds(0, 11, 490, 17);
 			bfme1.add(lblTitle_1);
@@ -216,7 +208,7 @@ public class Main extends JFrame {
 			lblTitle_4.setBounds(0, 11, 490, 17);
 			help.add(lblTitle_4);
 			
-		//Instructions
+		// Instructions
 			lblLan_11.setForeground(Color.WHITE);
 			lblLan_11.setBounds(30, 61, 177, 14);
 			bfme1.add(lblLan_11);
@@ -262,7 +254,7 @@ public class Main extends JFrame {
 			bfme3.add(lblRes_13);
 			lblRes_13.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		//Help
+		// Help
 			lblHelp1.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp1.setForeground(Color.WHITE);
 			lblHelp1.setBounds(0, 59, 490, 17);
@@ -270,40 +262,42 @@ public class Main extends JFrame {
 			
 			lblHelp2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp2.setForeground(Color.WHITE);
-			lblHelp2.setBounds(0, 111, 490, 17);
+			lblHelp2.setBounds(0, 100, 490, 17);
 			help.add(lblHelp2);
 			
 			lblHelp3.setHorizontalAlignment(SwingConstants.CENTER);
 			lblHelp3.setForeground(Color.WHITE);
-			lblHelp3.setBounds(0, 126, 490, 14);
+			lblHelp3.setBounds(0, 115, 490, 14);
 			help.add(lblHelp3);
 			
-		//Mailto
+		// Website Ref
 			HTMLEditorKit kit = new HTMLEditorKit();
 	        StyleSheet styleSheet = kit.getStyleSheet();
 	        styleSheet.addRule("a {color:#4ec5ff;}");
 	        
-			lblHelp4.setText("<html><a href=mailto:MorgulLord29isback@gmail.com>MorgulLord29isback@gmail.com</a></html>");
-			lblHelp4.setToolTipText("mailto:MorgulLord29isback@gmail.com");
+			lblHelp4.setText("<html><a href=justusc.eu/bfme-resfix>justusc.eu/bfme-resfix</a></html>");
+			lblHelp4.setToolTipText("justusc.eu/bfme-resfix");
 			lblHelp4.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHelp4.setBounds(0, 139, 490, 17);
+			lblHelp4.setBounds(0, 128, 490, 17);
 			help.add(lblHelp4);
 			lblHelp4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			lblHelp4.addMouseListener(new MouseAdapter() {
 			    public void mouseClicked(MouseEvent e) {
-			        try {
-			            Desktop.getDesktop().mail(new URI("mailto:MorgulLord29isback@gmail.com"));
-			        } catch (URISyntaxException | IOException ex) {
-			        }
+			    	URL myURL = null;
+		            try {
+		                myURL = new URL("http://justusc.eu/bfme-resfix/");
+		            } catch (MalformedURLException e1) {
+		                e1.printStackTrace();
+		            }
+		            openWebpage(myURL);
 			    }
 			});
-			
 			lblHelp5.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblHelp5.setForeground(Color.WHITE);
-			lblHelp5.setBounds(248, 207, 232, 16);
+			lblHelp5.setBounds(180, 207, 300, 16);
 			help.add(lblHelp5);
 
-	//CB Resolutions
+	// CB Resolutions
 		cbRes1.setBounds(277, 99, 179, 39);
 		bfme1.add(cbRes1);
 		cbRes1.setFont(new Font("Tahoma", Font.PLAIN, 27));
@@ -322,7 +316,7 @@ public class Main extends JFrame {
 		cbRes3.setSelectedItem(Auto.Resolution());
 		((JLabel)cbRes3.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 			
-	//CB Languages
+	// CB Languages
 		cbLan1.setBounds(30, 99, 177, 39);
 		bfme1.add(cbLan1);
 		cbLan1.setFont(new Font("Tahoma", Font.PLAIN, 27));
@@ -341,72 +335,61 @@ public class Main extends JFrame {
 		cbLan3.setSelectedItem(Auto.Language());
 		((JLabel)cbLan3.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		
-	//Apply Changes
+	// Apply Changes
 		button1.setBounds(176, 173, 132, 39);
 		bfme1.add(button1);
-		button1.addActionListener(new ActionListener() {
-			//ActionPerformed
-			public void actionPerformed(ActionEvent e) {
-				String language = (String)cbLan1.getSelectedItem();
-				String resolution = (String)cbRes1.getSelectedItem();
-		        game = 1;
-				try {
-					Ini.main(language, resolution, game);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});			
+		button1.addActionListener(e -> {
+            String language = (String)cbLan1.getSelectedItem();
+            String resolution = (String)cbRes1.getSelectedItem();
+            game = 1;
+            try {
+                Ini.main(language, resolution, game);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
 				
 		button2.setBounds(176, 173, 132, 39);
 		bfme2.add(button2);
-		button2.addActionListener(new ActionListener() {
-			//ActionPerformed
-			public void actionPerformed(ActionEvent e) {
-				String language = (String)cbLan2.getSelectedItem();
-				String resolution = (String)cbRes2.getSelectedItem();
-		        game = 2;
-				try {
-					Ini.main(language, resolution, game);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});		
+		button2.addActionListener(e -> {
+            String language = (String)cbLan2.getSelectedItem();
+            String resolution = (String)cbRes2.getSelectedItem();
+            game = 2;
+            try {
+                Ini.main(language, resolution, game);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });		
 		
 		button3.setBounds(176, 173, 132, 39);
 		bfme3.add(button3);
-		button3.addActionListener(new ActionListener() {
-			//ActionPerformed
-			public void actionPerformed(ActionEvent e) {
-				String language = (String)cbLan3.getSelectedItem();
-				String resolution = (String)cbRes3.getSelectedItem();
-		        game = 3;
-				try {
-					Ini.main(language, resolution, game);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});				
+		button3.addActionListener(e -> {
+            String language = (String)cbLan3.getSelectedItem();
+            String resolution = (String)cbRes3.getSelectedItem();
+            game = 3;
+            try {
+                Ini.main(language, resolution, game);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });			
 
-	//Update-Check
+	// Update-Check
 		update.setBounds(10, 194, 121, 29);
 		help.add(update);	
 		update.setToolTipText("https://www.mediafire.com/folder/5qvyz9eb03d7i/BFME-Windows-Resolution-Fixer");
-		update.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				URL myURL = null;
-				try {
-					myURL = new URL("https://www.mediafire.com/folder/5qvyz9eb03d7i/BFME-Windows-Resolution-Fixer");
-				} catch (MalformedURLException e1) {
-					e1.printStackTrace();
-				}
-				openWebpage(myURL);
-			}
-		});
+		update.addActionListener(e -> {
+            URL myURL = null;
+            try {
+                myURL = new URL("https://www.mediafire.com/folder/5qvyz9eb03d7i/BFME-Windows-Resolution-Fixer");
+            } catch (MalformedURLException e1) {
+                e1.printStackTrace();
+            }
+            openWebpage(myURL);
+        });
 		
-	//Images
+	// Images
 		JLabel img1 = new JLabel();
 		img1.setIcon(new ImageIcon(Main.class.getResource("/images/bfme1.png")));
 		img1.setBounds(0, 0, 490, 234);
@@ -428,8 +411,8 @@ public class Main extends JFrame {
 		help.add(imgHelp);
 	}
 	
-	//Update Checker
-		public static void openWebpage(URI string) {
+	// Update Checker
+		private static void openWebpage(URI string) {
 		    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
 		        try {
@@ -440,29 +423,29 @@ public class Main extends JFrame {
 		    }
 		}
 
-		public static void openWebpage(URL url) {
+		private static void openWebpage(URL url) {
 		    try {
 		        openWebpage(url.toURI());
 		    } catch (URISyntaxException e) {
 		        e.printStackTrace();
 		    }
 		}
-	
-	//Languages Execute
-	public void setDeutsch() {
-		//Main
+		
+	// Languages Execute
+	private void setDeutsch() {
+		// Main
 			setProLang(1);
 			langEN.setIcon(new ImageIcon(Main.class.getResource("/images/en1.png")));
 			langDE.setIcon(new ImageIcon(Main.class.getResource("/images/de0.png")));
 			
 			setTitle("SUM - Windows & Auflösungs-Fixer");
 		
-		//Tab
+		// Tab
 			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM I</b></body></html");
 			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM II</b></body></html");
 			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>SUM II - ADH</b></body></html");
 		
-		//Label
+		// Label
 			lblTitle_1.setText("Die Schlacht um Mittelerde I");
 			lblTitle_2.setText("Die Schlacht um Mittelerde II");
 			lblTitle_3.setText("Die Schlacht um Mittelerde II - Aufstieg des Hexenkönigs");
@@ -484,11 +467,11 @@ public class Main extends JFrame {
 			lblRes_13.setText(res1);
 			
 			lblHelp1.setText("Hast du weitere Fragen?");	
-			lblHelp2.setText("Klicke \"Aktualisieren\" für die neuste Version & Anleitungen in Englisch und Deutsch");
-			lblHelp3.setText("oder sende mir eine Email an:");
-			lblHelp5.setText("Version: " + version + " (" + versionDate + ") von MorCJul");
-		
-		//Button
+			lblHelp2.setText("Klicke \"Aktualisieren\" für die neuste Version");
+			lblHelp3.setText("oder besuche meine Webseite mit einer Anleitung:");
+			lblHelp5.setText("Version: " + version + " (" + versionDate + ") von Justus Cöster");
+			
+		// Button
 			update.setText("Aktualisieren");
 			
 			String apply = "Übernehmen";
@@ -496,13 +479,13 @@ public class Main extends JFrame {
 			button2.setText(apply);
 			button3.setText(apply);
 		
-		//Tooltips
-			String res = "Die ausgewählte Auflösung sollte NICHT höher sein als deine aktuelle Desktop-Auflösung";
+		// ToolTips
+			String res = "Die ausgewählte Auflösung kann auch HÖHER sein als deine aktuelle Desktop-Auflösung";
 			cbRes1.setToolTipText(res);
 			cbRes2.setToolTipText(res);
 			cbRes3.setToolTipText(res);
 			
-			String lan = "Es ist wichtig dass du die richtige Sprache deiner Spielinstallation auswählst, sonst wird es NICHT funktionieren";
+			String lan = "Es ist wichtig dass du die Sprache deiner SPIELINSTALLATION auswählst";
 			cbLan1.setToolTipText(lan);
 			cbLan2.setToolTipText(lan);
 			cbLan3.setToolTipText(lan);
@@ -513,20 +496,20 @@ public class Main extends JFrame {
 			button3.setToolTipText(buttonTip);
 	}
 	
-	public void setEnglish() {
-		//Main
+	private void setEnglish() {
+		// Main
 			setProLang(2);
 			langEN.setIcon(new ImageIcon(Main.class.getResource("/images/en0.png")));
 			langDE.setIcon(new ImageIcon(Main.class.getResource("/images/de1.png")));
 			
 			setTitle("BFME - Windows & Resolution-Fixer");
 		
-		//Tab
+		// Tab
 			tabbedPane.setTitleAt(0, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME I</b></body></html");
 			tabbedPane.setTitleAt(1, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME II</b></body></html");
 			tabbedPane.setTitleAt(2, "<html><body leftmargin=15 marginwidth=15 marginheight=5><b>BFME II - ROTWK</b></body></html");
 		
-		//Label
+		// Label
 			lblTitle_1.setText("The Battle for Middle-earth I");
 			lblTitle_2.setText("The Battle for Middle-earth II");
 			lblTitle_3.setText("The Battle for Middle-earth II: The Rise of the Witch-king");
@@ -537,7 +520,7 @@ public class Main extends JFrame {
 			lblLan_12.setText(lan1);
 			lblLan_13.setText(lan1);
 			
-			String lan2 = "you've installed the Game";
+			String lan2 = "you've installed the game";
 			lblLan_21.setText(lan2);
 			lblLan_22.setText(lan2);
 			lblLan_23.setText(lan2);
@@ -548,11 +531,11 @@ public class Main extends JFrame {
 			lblRes_13.setText(res1);
 			
 			lblHelp1.setText("You need additional help?");	
-			lblHelp2.setText("Click \"Check for updates\" for the latest version and instructions in English & Deutsch ");
-			lblHelp3.setText("or send me an Email to:");
-			lblHelp5.setText("Version: " + version + " (" + versionDate + ") by MorCJul");
+			lblHelp2.setText("Click \"Check for updates\" for the latest version");
+			lblHelp3.setText("or visit my website with additional instructions:");
+			lblHelp5.setText("Version: " + version + " (" + versionDate + ") by Justus Cöster");
 		
-		//Button
+		// Button
 			update.setText("Check for updates");
 			
 			String apply = "Apply changes";
@@ -560,28 +543,28 @@ public class Main extends JFrame {
 			button2.setText(apply);
 			button3.setText(apply);
 		
-		//Tooltip
-			String res = "Setting your In-Game-Resolution higher than your current Desktop-Resolution will NOT work";
+		// ToolTip
+			String res = "You can also set your In-game-resolution HIGHER than your current desktop-resolution";
 			cbRes1.setToolTipText(res);
 			cbRes2.setToolTipText(res);
 			cbRes3.setToolTipText(res);
 			
-			String lan = "It is important that you select the Language of your Game-Installation, otherwise the fix will NOT work";
+			String lan = "It is important that you select the language of your GAME-INSTALLATION";
 			cbLan1.setToolTipText(lan);
 			cbLan2.setToolTipText(lan);
 			cbLan3.setToolTipText(lan);
 			
-			String buttonTip = "Generate or edit the Options.ini-File in your BFME-Folder";
+			String buttonTip = "Generate or edit the Options.ini-file in your BFME-folder";
 			button1.setToolTipText(buttonTip);
 			button2.setToolTipText(buttonTip);
 			button3.setToolTipText(buttonTip);
 	}
 
-	public static int getProLang() {
+	static int getProLang() {
 		return proLang;
 	}
 
-	public static void setProLang(int proLang) {
+	private static void setProLang(int proLang) {
 		Main.proLang = proLang;
 	}
 }
