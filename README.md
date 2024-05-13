@@ -2,7 +2,7 @@
 
 All-in-One Tool for **"The Battle for Middle Earth"** Anthology on modern Windows
 
-**Restoring the 20-year-old game series to its former glory**
+***"Restoring the 20-year-old game series to its former glory"***
 
 **Features:**
 - Runs on Windows 7, 8, 10 & 11
