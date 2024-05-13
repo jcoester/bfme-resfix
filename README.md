@@ -14,7 +14,7 @@
 # How to use
 *Click the image to watch the Video Demo*
 
-[![Click the image to watch the Video Demo](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/Thumbnail.jpg)](https://www.youtube.com/watch?v=V6qkwS8NSQ4)
+[![Click the image to watch the Video Demo](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/Thumbnail.jpg)](https://youtu.be/4pJYwUAgK-g)
 
 # Result
 
