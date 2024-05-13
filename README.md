@@ -2,7 +2,7 @@
 
 All-in-One Tool for **"The Battle for Middle Earth"** Anthology on modern Windows
 
-*Restoring the 20 year old game series to its former glory*
+**Restoring the 20-year old game series to its former glory**
 
 **Features:**
 - Runs on Windows 7, 8, 10 & 11
@@ -12,7 +12,9 @@ All-in-One Tool for **"The Battle for Middle Earth"** Anthology on modern Window
 - Retains the original HUD
 
 # How to use
-[![](https://i9.ytimg.com/vi_webp/V6qkwS8NSQ4/mq2.webp?sqp=CMjaiLIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGE0gXChlMA8=&rs=AOn4CLAa3qsIucpF56QCBglBseZ3oWHKSA)](https://youtu.be/V6qkwS8NSQ4)
+Click image to watch YouTube Video
+[![Click to watch YouTube Video](https://img.youtube.com/vi/V6qkwS8NSQ4/0.jpg)](https://www.youtube.com/watch?v=V6qkwS8NSQ4)
+
 
 # Result
 
