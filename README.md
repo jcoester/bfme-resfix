@@ -12,6 +12,9 @@
 - Retains the original HUD
 
 # How to use
+
+[Download here](https://github.com/jcoester/bfme-resfix/releases)
+
 *Click the image to watch the Video Demo*
 
 [![Click the image to watch the Video Demo](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/Thumbnail.jpg)](https://youtu.be/4pJYwUAgK-g)
