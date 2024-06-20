@@ -20,17 +20,19 @@
 
 # Result
 
-## 1. Original vs. BFME-ResFix Modded
+## Original vs. BFME-ResFix Modded
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/01_Before-After.gif)
 
-## 2. Retains the original HUD
+# Features 
+
+## 1. Retains the original HUD
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/02_HUD.gif)
 
-## 3. Retains the original Zoom
+## 2. Retains the original Zoom
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/03_Zoom_Level.gif)
 
-## 4. Retains the original Fog
+## 3. Retains the original Fog
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/04_Fog.gif)
 
-## 5. Enables Widescreen resolutions up to 4K or higher
+## 4. Enables Widescreen resolutions up to 4K or higher
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/05_High-Res.gif)
