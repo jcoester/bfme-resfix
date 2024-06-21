@@ -20,19 +20,47 @@
 
 # Result
 
-## Original vs. BFME-ResFix Modded
+### Original vs. BFME-ResFix Modded
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/01_Before-After.gif)
 
 # Features 
 
-## 1. Retains the original HUD
+### 1. Retains the original HUD
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/02_HUD.gif)
 
-## 2. Retains the original Zoom
+### 2. Retains the original Zoom
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/03_Zoom_Level.gif)
 
-## 3. Retains the original Fog
+### 3. Retains the original Fog
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/04_Fog.gif)
 
-## 4. Enables Widescreen resolutions up to 4K or higher
+### 4. Enables Widescreen resolutions up to 4K or higher
 ![](https://github.com/jcoester/bfme-resfix/blob/storage/GIF/05_High-Res.gif)
+
+# Technical Info
+
+### High-Resolution scaling
+Some in-game fonts do not scale well on High DPI displays. **bfme-resfix** uses the Windows Display Scaling factor and recommends the most appropriate resolution for the screen. Example: *On a 3840 x 2160 screen with 200% scaling, 1920 x 1080 is recommended. Choosing a higher resolution like 2560 x 1440 can work depending on user preference, screen size and viewing distance.*
+
+### Retaining Zoom & Fog
+To match the original Zoom level, the following settings are applied to each map's original heights. 
+The same values are used for the original Fog level. Each Aspect Ratio requires its respective *Maps.big*-file to match the original look.
+
+| Aspect Ratio | Camera Angle | Multiplier | MinHeight | MaxHeight |
+|--------------|--------------|------------|-----------|-----------|
+| 4:3          | 37.5°        | 1,000      | 120       | 300       |
+| 16:9         | 35°          | 1,333      | 160       | 400       |
+| 21:9         | 32.5°        | 1,750      | 210       | 525       |
+| 32:9 [1]     | 30°          | 2,667      | 320       | 800       |
+
+*[1] Engine breaks with 32:9 settings, displaying a black curtain*
+
+### Retaining HUD
+
+The HUD mods used by **bfme-resfix** are
+
+| Game  | Link | 
+|-------|------|
+| BFME1 | [BFME1 Widescreen APT Fix](https://www.the3rdage.net/item-817) |
+| BFME2 | [BfMe II / RotWk Widescreen UI Mod (alpha)](https://www.the3rdage.net/item-717) | 
+| ROTWK | [BfMe II / RotWk Widescreen UI Mod (alpha)](https://www.the3rdage.net/item-717) |
