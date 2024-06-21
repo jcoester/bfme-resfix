@@ -43,15 +43,15 @@
 Some in-game fonts do not scale well on High DPI displays. **bfme-resfix** uses the Windows Display Scaling factor and recommends the most appropriate resolution for the screen. Example: *On a 3840 x 2160 screen with 200% scaling, 1920 x 1080 is recommended. Choosing a higher resolution like 2560 x 1440 can work depending on user preference, screen size and viewing distance.*
 
 ### Retaining Zoom & Fog
-To match the original Zoom level, the following settings are applied to each map's original heights. 
+To match the original Zoom level, the following **Camera Angle** and **Height Multiplier** are applied to each map's original heights. 
 The same values are used for the original Fog level. Each Aspect Ratio requires its respective *Maps.big*-file to match the original look.
 
-| Aspect Ratio | Camera Angle | Multiplier | MinHeight | MaxHeight |
-|--------------|--------------|------------|-----------|-----------|
-| 4:3          | 37.5°        | 1,000      | 120       | 300       |
-| 16:9         | 35°          | 1,333      | 160       | 400       |
-| 21:9         | 32.5°        | 1,750      | 210       | 525       |
-| 32:9 [1]     | 30°          | 2,667      | 320       | 800       |
+| Aspect Ratio | Camera Angle | Height Multiplier | Min. Height | Max. Height | 
+|--------------|--------------|-------------------|-------------|-------------|
+| 4:3          | 37.5°        | 1,000             | 120         | 300         |
+| 16:9         | 35°          | 1,333             | 160         | 400         |
+| 21:9         | 32.5°        | 1,750             | 210         |  525        |
+| 32:9 [1]     | 30°          | 2,667             | 320         | 800         |
 
 *[1] Engine breaks with 32:9 settings, displaying a black curtain*
 
