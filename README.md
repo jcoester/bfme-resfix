@@ -50,10 +50,12 @@ The same values are used for the original Fog level. Each Aspect Ratio requires 
 |--------------|--------------|-------------------|-------------|-------------|
 | 4:3          | 37.5°        | 1,000             | 120         | 300         |
 | 16:9         | 35°          | 1,333             | 160         | 400         |
-| 21:9         | 32.5°        | 1,750             | 210         |  525        |
+| 21:9         | 32.5°        | 1,750             | 210         | 525         |
 | 32:9 [1]     | 30°          | 2,667             | 320         | 800         |
 
-*[1] Engine breaks with 32:9 settings, displaying a black curtain*
+[1] *Engine breaks with 32:9 settings, displaying a black curtain at max. height 800. Reducing the height would effectively decrease the horizontal FOV compared to other aspect ratios, hence it is not advised.*
+
+[Maps.big direct downloads](https://github.com/jcoester/bfme-resfix/tree/storage/Maps)
 
 ### Retaining HUD
 
