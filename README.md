@@ -6,6 +6,7 @@
 
 **Features:**
 - Run the games on Windows 7, 8, 10 & 11
+- Supports all official game languages
 - Includes the latest official game patches
 - Enables Widescreen resolutions up to 4K or higher
 - Retains the original HUD, Zoom, and Fog
