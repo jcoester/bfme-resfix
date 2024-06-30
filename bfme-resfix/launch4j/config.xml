@@ -2,18 +2,18 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\justusc\Documents\GitHub\bfme-new\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.jar</jar>
-  <outfile>C:\Users\justusc\Documents\GitHub\bfme-new\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.exe</outfile>
   <errTitle/>
   <cmdLine/>
+  <jar>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.jar</jar>
+  <outfile>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.exe</outfile>
   <chdir>.</chdir>
   <priority>normal</priority>
   <downloadUrl>https://www.java.com/download/</downloadUrl>
   <supportUrl/>
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
-  <manifest>C:\Users\justusc\Documents\GitHub\bfme-new\bfme-resfix\launch4j\bfme-resfix.manifest</manifest>
-  <icon>C:\Users\justusc\Documents\GitHub\bfme-new\bfme-resfix\resources\icon\icon-11.ico</icon>
+  <manifest>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\launch4j\bfme-resfix.manifest</manifest>
+  <icon>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\resources\icon\icon-11.ico</icon>
   <classPath>
     <mainClass>launch.LaunchApp</mainClass>
   </classPath>
@@ -25,7 +25,7 @@
     <maxVersion/>
   </jre>
   <splash>
-    <file>C:\Users\justusc\Documents\GitHub\bfme-new\bfme-resfix\resources\icon\icon-11.bmp</file>
+    <file>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\resources\icon\icon-11.bmp</file>
     <waitForWindow>true</waitForWindow>
     <timeout>30</timeout>
     <timeoutErr>true</timeoutErr>
