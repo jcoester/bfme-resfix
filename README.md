@@ -45,7 +45,7 @@ Some in-game fonts do not scale well on High DPI displays. **bfme-resfix** uses 
 
 ### Retaining Zoom & Fog
 To match the original Zoom level, the following **Camera Angle** and **Height Multiplier** are applied to each map's original heights. 
-The same values are used for the original Fog level. Each Aspect Ratio requires its respective *Maps.big*-file to match the original look.
+The same values are used to retain the original Fog level. Each Aspect Ratio requires its respective *Maps.big*-file to match the original look.
 
 | Aspect Ratio | Camera Angle | Height Multiplier | Min. Height | Max. Height | 
 |--------------|--------------|-------------------|-------------|-------------|
@@ -67,3 +67,13 @@ The HUD mods used by **bfme-resfix** are
 | BFME1 | [BFME1 Widescreen APT Fix](https://www.the3rdage.net/item-817) |
 | BFME2 | [BfMe II / RotWk Widescreen UI Mod (alpha)](https://www.the3rdage.net/item-717) | 
 | ROTWK | [BfMe II / RotWk Widescreen UI Mod (alpha)](https://www.the3rdage.net/item-717) |
+
+# Self-creating the Executable
+
+1. Clone this repo: ```https://github.com/jcoester/bfme-resfix.git```
+2. Open project in [IntelliJ IDEA Community Edition](https://www.jetbrains.com/de-de/idea/download/download-thanks.html?platform=windows&code=IIC) or similar
+3. In IntelliJ: ```Build``` > ```Build Artifacts...``` > ```bfme-resfix:jar``` > ```Build```
+4. Open ```bfme-resfix\launch4j\config.xml``` in [Launch4j](https://launch4j.sourceforge.net/)
+5. In Launch4j Basic tab, adjust paths to your system
+6. Build wrapper by clicking the settings wheel icon
+7. Done!
