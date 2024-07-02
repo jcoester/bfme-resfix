@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.jar</jar>
+  <outfile>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\out\artifacts\bfme_resfix_jar\bfme-resfix.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>https://www.java.com/download/</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest>C:\Users\justusc\Documents\GitHub\bfme-resfix\launch4j\bfme-resfix.manifest</manifest>
+  <icon>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\src\main\resources\icon\icon-11.ico</icon>
+  <classPath>
+    <mainClass>launch.LaunchApp</mainClass>
+  </classPath>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>8</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+  <splash>
+    <file>C:\Users\justusc\Documents\GitHub\bfme-resfix\bfme-resfix\src\main\resources\icon\icon-11.bmp</file>
+    <waitForWindow>true</waitForWindow>
+    <timeout>30</timeout>
+    <timeoutErr>true</timeoutErr>
+  </splash>
+  <versionInfo>
+    <fileVersion>0.4.0.0</fileVersion>
+    <txtFileVersion>beta</txtFileVersion>
+    <fileDescription>BFME ResFix</fileDescription>
+    <copyright>2024 jcoester</copyright>
+    <productVersion>0.4.0.0</productVersion>
+    <txtProductVersion>beta</txtProductVersion>
+    <productName>BFME ResFix</productName>
+    <companyName>https://github.com/jcoester/bfme-resfix/releases</companyName>
+    <internalName>BFME ResFix</internalName>
+    <originalFilename>bfme-resfix.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>
