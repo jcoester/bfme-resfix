@@ -73,8 +73,7 @@ The HUD mods used by **bfme-resfix** are
 1. Clone this repo: ```https://github.com/jcoester/bfme-resfix.git```
 2. In [IntelliJ IDEA Community Edition](https://www.jetbrains.com/de-de/idea/download/download-thanks.html?platform=windows&code=IIC) or similar: Open project
 3. In **IntelliJ**: ```Build``` > ```Build Artifacts...``` > ```bfme-resfix:jar``` > ```Build```
-4. In [Launch4j](https://launch4j.sourceforge.net/):
-   a. Open ```.\launch4j\config.xml``` 
-   b. In Basic tab, adjust paths to your system
-   c. ```Build wrapper``` by clicking the settings wheel icon
-5. Done!
+4. In [Launch4j](https://launch4j.sourceforge.net/): Open ```.\launch4j\config.xml``` 
+5. In **Launch4j** ```Basic``` & ```Splash``` tab: Adjust paths to your system
+6. In **Launch4j**: ```Build wrapper``` by clicking the settings wheel icon
+7. Done!
