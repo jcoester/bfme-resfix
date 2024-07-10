@@ -52,12 +52,11 @@ public class View {
         if (game == null)
             return;
 
-        System.err.println(game.getId() + ": renderGame");
 
-        gamePanel.enableTitleBFME(game.isInstalled());
-        gamePanel.enableTitleRes(game.isInstalled());
-        gamePanel.enableTitleMaps(game.isInstalled());
-        gamePanel.enableTitleHud(game.isInstalled());
+        gamePanel.getTitleBFME().setEnabled(game.isInstalled());
+        gamePanel.getTitleRes().setEnabled(game.isInstalled());
+        gamePanel.getTitleMaps().setEnabled(game.isInstalled());
+        gamePanel.getTitleHud().setEnabled(game.isInstalled());
 
         setInstallationLabel(gamePanel, game);
         setRunningLabel(gamePanel, game);
@@ -66,15 +65,19 @@ public class View {
         setComboBoxHud(gamePanel, game, labels);
     }
 
-    private void setRunningLabel(Game game, JLabel runningLabel) {
-        runningLabel.setText(null);
-        runningLabel.setEnabled(game.isRunning());
+    private void setRunningLabel(GamePanel gamePanel, Game game) {
+        JLabel labelRunning = gamePanel.getLabelRunning();
+
+        labelRunning.setText(null);
+        labelRunning.setEnabled(game.isRunning());
 
         if (game.isRunning())
-            runningLabel.setText(getRunningDisclaimer());
+            labelRunning.setText(getRunningDisclaimer());
     }
 
     private void setComboBoxHud(GamePanel gamePanel, Game game, ResourceBundle labels) {
+        JComboBox<HUD> comboBox = gamePanel.getJComboBoxHud();
+
         // Default
         comboBox.removeAllItems();
         comboBox.setEnabled(false);
@@ -105,6 +108,8 @@ public class View {
     }
 
     private void setComboBoxMaps(GamePanel gamePanel, Game game, ResourceBundle labels) {
+        JComboBox<Maps> comboBox = gamePanel.getJComboBoxMaps();
+
         // Default
         comboBox.removeAllItems();
         comboBox.setEnabled(false);
@@ -221,41 +226,45 @@ public class View {
     }
 
     private void setInstallationLabel(GamePanel gamePanel, Game game) {
-        gamePanel.enableInstall(game.isInstalled());
-        gamePanel.updateInstall(labels.getString("game.notInstalled"));
-        gamePanel.showSpacer(game.isInstalled() && !game.isPatched());
-        gamePanel.showPatch(game.isInstalled() && !game.isPatched());
-        gamePanel.enablePatch(game.isInstalled() && !game.isPatched() && !game.isRunning());
-        gamePanel.updatePatchCursor(Cursor.getDefaultCursor());
+        JLabel labelInstall = gamePanel.getLabelInstall();
+        JLabel labelSpacer = gamePanel.getLabelSpacer();
+        JLabel labelPatch = gamePanel.getLabelPatch();
+
+        labelInstall.setEnabled(game.isInstalled());
+        labelInstall.setText(labels.getString("game.notInstalled"));
+        labelSpacer.setVisible(game.isInstalled() && !game.isPatched());
+        labelPatch.setVisible(game.isInstalled() && !game.isPatched());
+        labelPatch.setEnabled(game.isInstalled() && !game.isPatched() && !game.isRunning());
+        labelPatch.setCursor(Cursor.getDefaultCursor());
 
         // Reset mouse listener
         int index = game.getId().ordinal();
-        MouseListener[] listeners = gamePanel.getPatchMouseListeners();
+        MouseListener[] listeners = labelPatch.getMouseListeners();
         for (MouseListener l : listeners)
-            gamePanel.removePatchMouseListener(l);
+            labelPatch.removeMouseListener(l);
         patchLabels.set(index, false);
 
         if (game.isInstalled())
-            gamePanel.updateInstall(getVersionLabel(game));
+            labelInstall.setText(getVersionLabel(game));
 
         if (game.isInstalled() && !game.isPatched()) {
-            gamePanel.updatePatch(getPatchHereLabel(game));
+            labelPatch.setText(getPatchHereLabel(game));
 
             if (!game.isRunning()) {
-                gamePanel.updatePatchCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                labelPatch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
                 // Allow only one instance per label
                 if (!patchLabels.get(index)) {
                     patchLabels.set(index, true); // Mark as added
 
-                    gamePanel.labelPatch.addMouseListener(new MouseAdapter() {
+                    labelPatch.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             SwingUtilities.invokeLater(() -> {
                                 // Reset label
-                                gamePanel.labelPatch.removeMouseListener(this);
-                                gamePanel.labelPatch.setCursor(Cursor.getDefaultCursor());
-                                gamePanel.labelPatch.setText(getPatchLoadingLabel(game));
+                                labelPatch.removeMouseListener(this);
+                                labelPatch.setCursor(Cursor.getDefaultCursor());
+                                labelPatch.setText(getPatchLoadingLabel(game));
                                 // Set Loading UI
                                 btnApply.setEnabled(false);
                                 loadingBar.setIndeterminate(true);
