@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
-    private GameID id;
     private JComboBox<Resolution> comboBoxRes;
     private JComboBox<Maps> comboBoxMaps;
     private JComboBox<HUD> comboBoxHud;
@@ -25,13 +24,14 @@ public class GamePanel extends JPanel {
     }
 
     public void updatePanel(Game game, Display display) {
-
     }
 
     public void updateTitleFont(String text, Font ringBearer, Color gold) {
-        titleBFME.setText(text);
-        titleBFME.setFont(ringBearer);
-        titleBFME.setForeground(gold);
+        SwingUtilities.invokeLater(() -> {
+            titleBFME.setText(text);
+            titleBFME.setFont(ringBearer);
+            titleBFME.setForeground(gold);
+        });
     }
 
     public Resolution getResolutionSelectedItem() {

@@ -234,19 +234,7 @@ public class MainFrame extends JFrame {
         // Skip
         if (games.stream().noneMatch(Game::isInstalled))
             return false;
-
-        // Save selection state
-
-        Resolution res1 = gamePanel1.getResolutionSelectedItem();
-        Resolution res2 = gamePanel2.getResolutionSelectedItem();
-        Resolution res3 = gamePanel3.getResolutionSelectedItem();
-        Maps maps1 = gamePanel1.getMapsSelectedItem();
-        Maps maps2 = gamePanel2.getMapsSelectedItem();
-        Maps maps3 = gamePanel3.getMapsSelectedItem();
-        HUD hud1 = gamePanel1.getHUDSelectedItem();
-        HUD hud2 = gamePanel2.getHUDSelectedItem();
-        HUD hud3 = gamePanel3.getHUDSelectedItem();
-
+        
         // Loop games
         for (Game game : games) {
 
@@ -257,9 +245,9 @@ public class MainFrame extends JFrame {
             // Resolution
             Resolution selectedResolution = null;
             switch (game.getId()) {
-                case BFME1: selectedResolution = res1; break;
-                case BFME2: selectedResolution = res2; break;
-                case ROTWK: selectedResolution = res3; break;
+                case BFME1: selectedResolution = gamePanel1.getResolutionSelectedItem(); break;
+                case BFME2: selectedResolution = gamePanel2.getResolutionSelectedItem(); break;
+                case ROTWK: selectedResolution = gamePanel3.getResolutionSelectedItem(); break;
             }
             if (selectedResolution != null && !selectedResolution.equals(game.getInGameResolution()) && selectedResolution.getWidth() != -1) {
                 handleResolutionSelection(game, selectedResolution);
@@ -269,9 +257,9 @@ public class MainFrame extends JFrame {
             // Maps
             Maps selectedMaps = null;
             switch (game.getId()) {
-                case BFME1: selectedMaps = maps1; break;
-                case BFME2: selectedMaps = maps2; break;
-                case ROTWK: selectedMaps = maps3; break;
+                case BFME1: selectedMaps = gamePanel1.getMapsSelectedItem(); break;
+                case BFME2: selectedMaps = gamePanel2.getMapsSelectedItem(); break;
+                case ROTWK: selectedMaps = gamePanel3.getMapsSelectedItem(); break;
             }
             // Handle selection
             if (selectedMaps != null && !selectedMaps.equals(game.getMaps()) && game.isPatched()) {
@@ -282,9 +270,9 @@ public class MainFrame extends JFrame {
             // HUD
             HUD selectedHUD = null;
             switch (game.getId()) {
-                case BFME1: selectedHUD = hud1; break;
-                case BFME2: selectedHUD = hud2; break;
-                case ROTWK: selectedHUD = hud3; break;
+                case BFME1: selectedHUD = gamePanel1.getHUDSelectedItem(); break;
+                case BFME2: selectedHUD = gamePanel2.getHUDSelectedItem(); break;
+                case ROTWK: selectedHUD = gamePanel3.getHUDSelectedItem(); break;
             }
             // Handle selection
             if (selectedHUD != null && !selectedHUD.equals(game.getHud())) {
