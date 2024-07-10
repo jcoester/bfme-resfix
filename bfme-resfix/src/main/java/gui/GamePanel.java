@@ -11,27 +11,22 @@ public class GamePanel extends JPanel {
     private JComboBox<HUD> comboBoxHud;
     private JLabel labelRunning;
     private JLabel labelInstall;
+    private JLabel labelSpacer;
     private JLabel labelPatch;
     private JLabel titleBFME;
+    private JPanel gamePanel;
     private JLabel titleRes;
     private JLabel titleMaps;
     private JLabel titleHud;
-    private JLabel labelSpacer;
-    private JPanel gamePanel;
 
     public GamePanel() {
 
     }
 
-    public void updatePanel(Game game, Display display) {
-    }
-
     public void updateTitleFont(String text, Font ringBearer, Color gold) {
-        SwingUtilities.invokeLater(() -> {
-            titleBFME.setText(text);
-            titleBFME.setFont(ringBearer);
-            titleBFME.setForeground(gold);
-        });
+        titleBFME.setText(text);
+        titleBFME.setFont(ringBearer);
+        titleBFME.setForeground(gold);
     }
 
     public Resolution getResolutionSelectedItem() {
