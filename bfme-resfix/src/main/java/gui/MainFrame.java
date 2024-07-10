@@ -20,6 +20,8 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 
+import static model.GameID.*;
+
 public class MainFrame extends JFrame {
     // Logger
     public static final Logger logger = LoggerFactory.getLogger(MainFrame.class.getName());
@@ -35,14 +37,15 @@ public class MainFrame extends JFrame {
     private JButton btnApply;
     private JProgressBar loadingBar;
     private JLabel loadingText;
+    List<GamePanel> gamePanels = new ArrayList<>();
     private GamePanel gamePanel1;
     private GamePanel gamePanel2;
     private GamePanel gamePanel3;
 
     public MainFrame() {
-        GamePanel gamePanel1 = new GamePanel();
-        GamePanel gamePanel2 = new GamePanel();
-        GamePanel gamePanel3 = new GamePanel();
+        gamePanels.add(gamePanel1);
+        gamePanels.add(gamePanel2);
+        gamePanels.add(gamePanel3);
 
         // Init Resources
         loadResourceBundles();
@@ -50,7 +53,7 @@ public class MainFrame extends JFrame {
         // Initialize MVC
         List<Game> games = GameInfo.initializeGames();
         Display display = new Display();
-        View view = new View(gamePanel1, gamePanel2, gamePanel3, properties, labels, loadingBar, loadingText, btnApply);
+        View view = new View(gamePanels, properties, labels, loadingBar, loadingText, btnApply);
         controller = new Controller(games, display, view);
         view.addController(controller);
 
@@ -123,9 +126,9 @@ public class MainFrame extends JFrame {
                     Font ringBearer = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, 24);
                     GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(ringBearer);
                     SwingUtilities.invokeLater(() -> {
-                        gamePanel1.updateTitleFont(labels.getString("title.bfme1"), ringBearer, gold);
-                        gamePanel2.updateTitleFont(labels.getString("title.bfme2"), ringBearer, gold);
-                        gamePanel3.updateTitleFont(labels.getString("title.rotwk"), ringBearer, gold);
+                        gamePanels.get(BFME1.ordinal()).updateTitleFont(labels.getString("title.bfme1"), ringBearer, gold);
+                        gamePanels.get(BFME2.ordinal()).updateTitleFont(labels.getString("title.bfme2"), ringBearer, gold);
+                        gamePanels.get(ROTWK.ordinal()).updateTitleFont(labels.getString("title.rotwk"), ringBearer, gold);
                     });
                 }
             } catch (FontFormatException | IOException e) {
@@ -245,9 +248,9 @@ public class MainFrame extends JFrame {
             // Resolution
             Resolution selectedResolution = null;
             switch (game.getId()) {
-                case BFME1: selectedResolution = gamePanel1.getResolutionSelectedItem(); break;
-                case BFME2: selectedResolution = gamePanel2.getResolutionSelectedItem(); break;
-                case ROTWK: selectedResolution = gamePanel3.getResolutionSelectedItem(); break;
+                case BFME1: selectedResolution = gamePanels.get(BFME1.ordinal()).getResolutionSelectedItem(); break;
+                case BFME2: selectedResolution = gamePanels.get(BFME2.ordinal()).getResolutionSelectedItem(); break;
+                case ROTWK: selectedResolution = gamePanels.get(ROTWK.ordinal()).getResolutionSelectedItem(); break;
             }
             if (selectedResolution != null && !selectedResolution.equals(game.getInGameResolution()) && selectedResolution.getWidth() != -1) {
                 handleResolutionSelection(game, selectedResolution);
@@ -257,9 +260,9 @@ public class MainFrame extends JFrame {
             // Maps
             Maps selectedMaps = null;
             switch (game.getId()) {
-                case BFME1: selectedMaps = gamePanel1.getMapsSelectedItem(); break;
-                case BFME2: selectedMaps = gamePanel2.getMapsSelectedItem(); break;
-                case ROTWK: selectedMaps = gamePanel3.getMapsSelectedItem(); break;
+                case BFME1: selectedMaps = gamePanels.get(BFME1.ordinal()).getMapsSelectedItem(); break;
+                case BFME2: selectedMaps = gamePanels.get(BFME2.ordinal()).getMapsSelectedItem(); break;
+                case ROTWK: selectedMaps = gamePanels.get(ROTWK.ordinal()).getMapsSelectedItem(); break;
             }
             // Handle selection
             if (selectedMaps != null && !selectedMaps.equals(game.getMaps()) && game.isPatched()) {
@@ -270,9 +273,9 @@ public class MainFrame extends JFrame {
             // HUD
             HUD selectedHUD = null;
             switch (game.getId()) {
-                case BFME1: selectedHUD = gamePanel1.getHUDSelectedItem(); break;
-                case BFME2: selectedHUD = gamePanel2.getHUDSelectedItem(); break;
-                case ROTWK: selectedHUD = gamePanel3.getHUDSelectedItem(); break;
+                case BFME1: selectedHUD = gamePanels.get(BFME1.ordinal()).getHUDSelectedItem(); break;
+                case BFME2: selectedHUD = gamePanels.get(BFME2.ordinal()).getHUDSelectedItem(); break;
+                case ROTWK: selectedHUD = gamePanels.get(ROTWK.ordinal()).getHUDSelectedItem(); break;
             }
             // Handle selection
             if (selectedHUD != null && !selectedHUD.equals(game.getHud())) {

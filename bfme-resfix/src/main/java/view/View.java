@@ -17,27 +17,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
+import static model.GameID.BFME1;
+
 public class View {
 
     public final List<Boolean> patchLabels = new ArrayList<>(Collections.nCopies(3, false));
     private Controller controller;
-    private final GamePanel gamePanel1;
-    private final GamePanel gamePanel2;
-    private final GamePanel gamePanel3;
+    private final List<GamePanel> gamePanels;
     private final ResourceBundle labels;
     private final ResourceBundle properties;
     private final JProgressBar loadingBar;
     private final JLabel loadingText;
     private final JButton btnApply;
 
-    public View(GamePanel gamePanel1, GamePanel gamePanel2, GamePanel gamePanel3,
-                ResourceBundle properties, ResourceBundle labels,
+    public View(List<GamePanel> gamePanels, ResourceBundle properties, ResourceBundle labels,
                 JProgressBar loadingBar, JLabel loadingText, JButton btnApply) {
 
-        this.gamePanel1 = gamePanel1;
-        this.gamePanel2 = gamePanel2;
-        this.gamePanel3 = gamePanel3;
-
+        this.gamePanels = gamePanels;
         this.properties = properties;
         this.labels = labels;
         this.loadingBar = loadingBar;
@@ -51,24 +47,24 @@ public class View {
     }
 
     public void renderGame(GameID gameID, Display display) {
-        Game game = controller.getGame(gameID);
-        switch (gameID) {
-            case BFME1: renderGame(gamePanel1, game, display); break;
-            case BFME2: renderGame(gamePanel2, game, display); break;
-            case ROTWK: renderGame(gamePanel3, game, display); break;
-        }
+        renderGame(gamePanels.get(gameID.ordinal()), controller.getGame(gameID), display);
     }
 
     private void renderGame(GamePanel gamePanel, Game game, Display display) {
         if (game == null)
             return;
 
-        gamePanel.titleBFME.setEnabled(game.isInstalled());
-        gamePanel.titleRes.setEnabled(game.isInstalled());
-        gamePanel.titleMaps.setEnabled(game.isInstalled());
-        gamePanel.titleHud.setEnabled(game.isInstalled());
+        System.err.println(game.getId() + ": renderGame");
 
-        //setInstallationLabel(game, installLabel, patchLabel);
+        gamePanel.updatePatchText(game.getId().toString());
+
+
+        //gamePanel.titleBFME.setEnabled(game.isInstalled());
+        //gamePanel.titleRes.setEnabled(game.isInstalled());
+        //gamePanel.titleMaps.setEnabled(game.isInstalled());
+        //gamePanel.titleHud.setEnabled(game.isInstalled());
+
+        //setInstallationLabel(gamePanel, game);
         //setRunningLabel(game, runningLabel);
         //setComboBoxResolution(game, resComboBox, labels, display);
         //setComboBoxMaps(game, mapsComboBox, labels);
@@ -227,43 +223,43 @@ public class View {
         comboBox.setSelectedItem(placeholderNoRes);
     }
 
-    private void setInstallationLabel(Game game, JLabel labelInfo, JLabel labelPatch) {
-        labelInfo.setEnabled(game.isInstalled());
-        labelPatch.setText(null);
-        labelPatch.setCursor(Cursor.getDefaultCursor());
-        labelPatch.setEnabled(!game.isRunning());
+    private void setInstallationLabel(GamePanel gamePanel, Game game) {
+        //gamePanel1.setInstallEnabled(game.isInstalled());
+        //gamePanel.setPatchEnabled(!game.isRunning());
+        //gamePanel1.setPatchText("Test");
+        //gamePanel.setPatchCursor(Cursor.getDefaultCursor());
 
         int index = game.getId().ordinal();
-        MouseListener[] listeners = labelPatch.getMouseListeners();
+        MouseListener[] listeners = gamePanel.labelPatch.getMouseListeners();
         for (MouseListener l : listeners)
-            labelPatch.removeMouseListener(l);
+            gamePanel.labelPatch.removeMouseListener(l);
         patchLabels.set(index, false);
 
         if (!game.isInstalled())
-            labelInfo.setText(labels.getString("game.notInstalled"));
+            gamePanel.labelInstall.setText(labels.getString("game.notInstalled"));
 
         if (game.isInstalled() && game.isPatched())
-            labelInfo.setText(getVersionLabel(game, ""));
+            gamePanel.labelInstall.setText(getVersionLabel(game, ""));
 
         if (game.isInstalled() && !game.isPatched()) {
-            labelInfo.setText(getVersionLabel(game, " -- "));
-            labelPatch.setText(getPatchHereLabel(game));
+            gamePanel.labelInstall.setText(getVersionLabel(game, " -- "));
+            gamePanel.labelPatch.setText(getPatchHereLabel(game));
 
             if (!game.isRunning()) {
-                labelPatch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                gamePanel.labelPatch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
                 // Allow only one instance per label
                 if (!patchLabels.get(index)) {
                     patchLabels.set(index, true); // Mark as added
 
-                    labelPatch.addMouseListener(new MouseAdapter() {
+                    gamePanel.labelPatch.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             SwingUtilities.invokeLater(() -> {
                                 // Reset label
-                                labelPatch.removeMouseListener(this);
-                                labelPatch.setCursor(Cursor.getDefaultCursor());
-                                labelPatch.setText(getPatchLoadingLabel(game));
+                                gamePanel.labelPatch.removeMouseListener(this);
+                                gamePanel.labelPatch.setCursor(Cursor.getDefaultCursor());
+                                gamePanel.labelPatch.setText(getPatchLoadingLabel(game));
                                 // Set Loading UI
                                 btnApply.setEnabled(false);
                                 loadingBar.setIndeterminate(true);
