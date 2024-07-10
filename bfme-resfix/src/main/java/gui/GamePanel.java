@@ -4,12 +4,13 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel {
     private GameID gameID;
-    private JComboBox<Resolution> comboBoxRes;
-    private JComboBox<Maps> comboBoxMaps;
-    private JComboBox<HUD> comboBoxHud;
+    public JComboBox<Resolution> comboBoxRes;
+    public JComboBox<Maps> comboBoxMaps;
+    public JComboBox<HUD> comboBoxHud;
     public JLabel labelRunning;
     public JLabel labelInstall;
     public JLabel labelSpacer;
@@ -42,28 +43,60 @@ public class GamePanel extends JPanel {
         return (HUD) comboBoxHud.getSelectedItem();
     }
 
-    public void setInstallEnabled(boolean enabled) {
+    public void enableTitleBFME(boolean enabled) {
+        titleBFME.setEnabled(enabled);
+    }
+
+    public void enableTitleRes(boolean enabled) {
+        titleRes.setEnabled(enabled);
+    }
+
+    public void enableTitleMaps(boolean enabled) {
+        titleMaps.setEnabled(enabled);
+    }
+
+    public void enableTitleHud(boolean enabled) {
+        titleHud.setEnabled(enabled);
+    }
+
+    public void enableInstall(boolean enabled) {
         labelInstall.setEnabled(enabled);
     }
 
-    public void setPatchEnabled(boolean enabled) {
+    public void showSpacer(boolean visible) {
+        labelSpacer.setVisible(visible);
+    }
+
+    public void enablePatch(boolean enabled) {
         labelPatch.setEnabled(enabled);
     }
 
-    public void setPatchText(String text) {
+    public void updatePatch(String text) {
         labelPatch.setText(text);
     }
 
-    public void setPatchCursor(Cursor cursor) {
+    public void updatePatchCursor(Cursor cursor) {
         labelPatch.setCursor(cursor);
     }
 
-    public void updateTitleText(String text) {
-        titleBFME.setText(text);
+    public void showPatch(boolean visible) {
+        labelPatch.setVisible(visible);
     }
 
-    public void updatePatchText(String text) {
-        labelPatch.setText(text);
+    public MouseListener[] getPatchMouseListeners() {
+        return labelPatch.getMouseListeners();
+    }
+
+    public void removePatchMouseListener(MouseListener l) {
+        labelPatch.removeMouseListener(l);
+    }
+
+    public void updateInstall(String text) {
+        labelInstall.setText(text);
+    }
+
+    public JComboBox<Resolution> getJComboBoxRes() {
+        return comboBoxRes;
     }
 }
 

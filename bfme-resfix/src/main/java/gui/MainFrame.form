@@ -27,7 +27,7 @@
       </vspacer>
       <component id="1a7f2" class="javax.swing.JButton" binding="btnApply">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="-1" height="40"/>
           </grid>
         </constraints>

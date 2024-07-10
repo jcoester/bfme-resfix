@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
-import static model.GameID.BFME1;
-
 public class View {
 
     public final List<Boolean> patchLabels = new ArrayList<>(Collections.nCopies(3, false));
@@ -56,19 +54,16 @@ public class View {
 
         System.err.println(game.getId() + ": renderGame");
 
-        gamePanel.updatePatchText(game.getId().toString());
+        gamePanel.enableTitleBFME(game.isInstalled());
+        gamePanel.enableTitleRes(game.isInstalled());
+        gamePanel.enableTitleMaps(game.isInstalled());
+        gamePanel.enableTitleHud(game.isInstalled());
 
-
-        //gamePanel.titleBFME.setEnabled(game.isInstalled());
-        //gamePanel.titleRes.setEnabled(game.isInstalled());
-        //gamePanel.titleMaps.setEnabled(game.isInstalled());
-        //gamePanel.titleHud.setEnabled(game.isInstalled());
-
-        //setInstallationLabel(gamePanel, game);
-        //setRunningLabel(game, runningLabel);
-        //setComboBoxResolution(game, resComboBox, labels, display);
-        //setComboBoxMaps(game, mapsComboBox, labels);
-        //setComboBoxHud(game, hudComboBox, labels);
+        setInstallationLabel(gamePanel, game);
+        setRunningLabel(gamePanel, game);
+        setComboBoxResolution(gamePanel, game, labels, display);
+        setComboBoxMaps(gamePanel, game, labels);
+        setComboBoxHud(gamePanel, game, labels);
     }
 
     private void setRunningLabel(Game game, JLabel runningLabel) {
@@ -79,7 +74,7 @@ public class View {
             runningLabel.setText(getRunningDisclaimer());
     }
 
-    private void setComboBoxHud(Game game, JComboBox<HUD> comboBox, ResourceBundle labels) {
+    private void setComboBoxHud(GamePanel gamePanel, Game game, ResourceBundle labels) {
         // Default
         comboBox.removeAllItems();
         comboBox.setEnabled(false);
@@ -109,7 +104,7 @@ public class View {
         }
     }
 
-    private void setComboBoxMaps(Game game, JComboBox<Maps> comboBox, ResourceBundle labels) {
+    private void setComboBoxMaps(GamePanel gamePanel, Game game, ResourceBundle labels) {
         // Default
         comboBox.removeAllItems();
         comboBox.setEnabled(false);
@@ -168,7 +163,9 @@ public class View {
         }
     }
 
-    private void setComboBoxResolution(Game game, JComboBox<Resolution> comboBox, ResourceBundle labels, Display display) {
+    private void setComboBoxResolution(GamePanel gamePanel, Game game, ResourceBundle labels, Display display) {
+        JComboBox<Resolution> comboBox = gamePanel.getJComboBoxRes();
+
         // Default
         comboBox.removeAllItems();
         comboBox.setEnabled(false);
@@ -224,29 +221,28 @@ public class View {
     }
 
     private void setInstallationLabel(GamePanel gamePanel, Game game) {
-        //gamePanel1.setInstallEnabled(game.isInstalled());
-        //gamePanel.setPatchEnabled(!game.isRunning());
-        //gamePanel1.setPatchText("Test");
-        //gamePanel.setPatchCursor(Cursor.getDefaultCursor());
+        gamePanel.enableInstall(game.isInstalled());
+        gamePanel.updateInstall(labels.getString("game.notInstalled"));
+        gamePanel.showSpacer(game.isInstalled() && !game.isPatched());
+        gamePanel.showPatch(game.isInstalled() && !game.isPatched());
+        gamePanel.enablePatch(game.isInstalled() && !game.isPatched() && !game.isRunning());
+        gamePanel.updatePatchCursor(Cursor.getDefaultCursor());
 
+        // Reset mouse listener
         int index = game.getId().ordinal();
-        MouseListener[] listeners = gamePanel.labelPatch.getMouseListeners();
+        MouseListener[] listeners = gamePanel.getPatchMouseListeners();
         for (MouseListener l : listeners)
-            gamePanel.labelPatch.removeMouseListener(l);
+            gamePanel.removePatchMouseListener(l);
         patchLabels.set(index, false);
 
-        if (!game.isInstalled())
-            gamePanel.labelInstall.setText(labels.getString("game.notInstalled"));
-
-        if (game.isInstalled() && game.isPatched())
-            gamePanel.labelInstall.setText(getVersionLabel(game, ""));
+        if (game.isInstalled())
+            gamePanel.updateInstall(getVersionLabel(game));
 
         if (game.isInstalled() && !game.isPatched()) {
-            gamePanel.labelInstall.setText(getVersionLabel(game, " -- "));
-            gamePanel.labelPatch.setText(getPatchHereLabel(game));
+            gamePanel.updatePatch(getPatchHereLabel(game));
 
             if (!game.isRunning()) {
-                gamePanel.labelPatch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                gamePanel.updatePatchCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
                 // Allow only one instance per label
                 if (!patchLabels.get(index)) {
@@ -286,8 +282,8 @@ public class View {
         }
     }
 
-    private String getVersionLabel(Game game, String extend) {
-        return "<html><font color='green'>" + labels.getString("game.installed") + game.getVersionInstalled() + "</font>" + extend + "</html>";
+    private String getVersionLabel(Game game) {
+        return "<html><font color='green'>" + labels.getString("game.installed") + game.getVersionInstalled() + "</font></html>";
     }
 
     private String getPatchHereLabel(Game game) {
