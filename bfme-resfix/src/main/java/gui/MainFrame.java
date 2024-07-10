@@ -32,42 +32,25 @@ public class MainFrame extends JFrame {
     private ResourceBundle labels;
     // UI Components
     private JPanel mainPanel;
-    private JLabel titleBFME1, titleBFME2, titleBFME3;
-    private JComboBox<Resolution> comboBox1Res, comboBox2Res, comboBox3Res;
-    private JComboBox<Maps> comboBox1Maps, comboBox2Maps, comboBox3Maps;
-    private JComboBox<HUD> comboBox1Hud, comboBox2Hud, comboBox3Hud;
-    private JLabel label1Install, label2Install, label3Install;
-    private JLabel label1Patch, label2Patch, label3Patch;
-    private JLabel label1Running, label2Running, label3Running;
-    private JLabel title1Res, title2Res, title3Res;
-    private JLabel title1Maps, title2Maps, title3Maps;
-    private JLabel title1Hud, title2Hud, title3Hud;
     private JButton btnApply;
     private JProgressBar loadingBar;
     private JLabel loadingText;
-    private GameFrame gameFrame1;
-    private GameFrame gameFrame2;
-    private GameFrame gameFrame3;
+    private GamePanel gamePanel1;
+    private GamePanel gamePanel2;
+    private GamePanel gamePanel3;
 
     public MainFrame() {
+        GamePanel gamePanel1 = new GamePanel();
+        GamePanel gamePanel2 = new GamePanel();
+        GamePanel gamePanel3 = new GamePanel();
+
         // Init Resources
         loadResourceBundles();
 
         // Initialize MVC
         List<Game> games = GameInfo.initializeGames();
         Display display = new Display();
-        View view = new View(
-                titleBFME1, titleBFME2, titleBFME3,
-                title1Res, title2Res, title3Res,
-                title1Maps, title2Maps, title3Maps,
-                title1Hud, title2Hud, title3Hud,
-                comboBox1Res, comboBox2Res, comboBox3Res,
-                comboBox1Maps, comboBox2Maps, comboBox3Maps,
-                comboBox1Hud, comboBox2Hud, comboBox3Hud,
-                label1Install, label2Install, label3Install,
-                label1Patch, label2Patch, label3Patch,
-                label1Running, label2Running, label3Running,
-                properties, labels, loadingBar, loadingText, btnApply);
+        View view = new View(gamePanel1, gamePanel2, gamePanel3, properties, labels, loadingBar, loadingText, btnApply);
         controller = new Controller(games, display, view);
         view.addController(controller);
 
@@ -140,12 +123,9 @@ public class MainFrame extends JFrame {
                     Font ringBearer = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, 24);
                     GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(ringBearer);
                     SwingUtilities.invokeLater(() -> {
-                        titleBFME1.setFont(ringBearer);
-                        titleBFME2.setFont(ringBearer);
-                        titleBFME3.setFont(ringBearer);
-                        titleBFME1.setForeground(gold);
-                        titleBFME2.setForeground(gold);
-                        titleBFME3.setForeground(gold);
+                        gamePanel1.updateTitleFont(labels.getString("title.bfme1"), ringBearer, gold);
+                        gamePanel2.updateTitleFont(labels.getString("title.bfme2"), ringBearer, gold);
+                        gamePanel3.updateTitleFont(labels.getString("title.rotwk"), ringBearer, gold);
                     });
                 }
             } catch (FontFormatException | IOException e) {
@@ -256,15 +236,16 @@ public class MainFrame extends JFrame {
             return false;
 
         // Save selection state
-        Resolution res1 = (Resolution) comboBox1Res.getSelectedItem();
-        Resolution res2 = (Resolution) comboBox2Res.getSelectedItem();
-        Resolution res3 = (Resolution) comboBox3Res.getSelectedItem();
-        Maps maps1 = (Maps) comboBox1Maps.getSelectedItem();
-        Maps maps2 = (Maps) comboBox2Maps.getSelectedItem();
-        Maps maps3 = (Maps) comboBox3Maps.getSelectedItem();
-        HUD hud1 = (HUD) comboBox1Hud.getSelectedItem();
-        HUD hud2 = (HUD) comboBox2Hud.getSelectedItem();
-        HUD hud3 = (HUD) comboBox3Hud.getSelectedItem();
+
+        Resolution res1 = gamePanel1.getResolutionSelectedItem();
+        Resolution res2 = gamePanel2.getResolutionSelectedItem();
+        Resolution res3 = gamePanel3.getResolutionSelectedItem();
+        Maps maps1 = gamePanel1.getMapsSelectedItem();
+        Maps maps2 = gamePanel2.getMapsSelectedItem();
+        Maps maps3 = gamePanel3.getMapsSelectedItem();
+        HUD hud1 = gamePanel1.getHUDSelectedItem();
+        HUD hud2 = gamePanel2.getHUDSelectedItem();
+        HUD hud3 = gamePanel3.getHUDSelectedItem();
 
         // Loop games
         for (Game game : games) {

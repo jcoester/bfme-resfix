@@ -2,6 +2,7 @@ package view;
 
 import controller.Controller;
 import filemanager.PatchManager;
+import gui.GamePanel;
 import model.*;
 import utility.CustomComboBoxRenderer;
 
@@ -18,86 +19,24 @@ import java.util.concurrent.CompletableFuture;
 
 public class View {
 
-    private final JLabel titleBFME1;
-    private final JLabel titleBFME2;
-    private final JLabel titleBFME3;
-    private final JLabel title1Res, title2Res, title3Res;
-    private final JLabel title1Maps, title2Maps, title3Maps;
-    private final JLabel title1Hud, title2Hud, title3Hud;
-    private final JComboBox<Resolution> comboBox1Res;
-    private final JComboBox<Resolution> comboBox2Res;
-    private final JComboBox<Resolution> comboBox3Res;
-    private final JComboBox<Maps> comboBox1Maps;
-    private final JComboBox<Maps> comboBox2Maps;
-    private final JComboBox<Maps> comboBox3Maps;
-    private final JComboBox<HUD> comboBox1Hud;
-    private final JComboBox<HUD> comboBox2Hud;
-    private final JComboBox<HUD> comboBox3Hud;
-    private final JLabel label1Install;
-    private final JLabel label2Install;
-    private final JLabel label3Install;
-    private final JLabel label1Patch;
-    private final JLabel label2Patch;
-    private final JLabel label3Patch;
-    private final JLabel label1Running;
-    private final JLabel label2Running;
-    private final JLabel label3Running;
+    public final List<Boolean> patchLabels = new ArrayList<>(Collections.nCopies(3, false));
+    private Controller controller;
+    private final GamePanel gamePanel1;
+    private final GamePanel gamePanel2;
+    private final GamePanel gamePanel3;
     private final ResourceBundle labels;
     private final ResourceBundle properties;
     private final JProgressBar loadingBar;
     private final JLabel loadingText;
     private final JButton btnApply;
-    public final List<Boolean> patchLabels = new ArrayList<>(Collections.nCopies(3, false));
-    private Controller controller;
 
-    public View(JLabel titleBFME1, JLabel titleBFME2, JLabel titleBFME3, JLabel title1Res, JLabel title2Res, JLabel title3Res,
-                JLabel title1Maps, JLabel title2Maps, JLabel title3Maps, JLabel title1Hud, JLabel title2Hud, JLabel title3Hud,
-                JComboBox<Resolution> comboBox1Res, JComboBox<Resolution> comboBox2Res, JComboBox<Resolution> comboBox3Res,
-                JComboBox<Maps> comboBox1Maps, JComboBox<Maps> comboBox2Maps, JComboBox<Maps> comboBox3Maps,
-                JComboBox<HUD> comboBox1Hud, JComboBox<HUD> comboBox2Hud, JComboBox<HUD> comboBox3Hud,
-                JLabel label1Install, JLabel label2Install, JLabel label3Install, JLabel label1Patch, JLabel label2Patch, JLabel label3Patch,
-                JLabel label1Running, JLabel label2Running, JLabel label3Running,
-                ResourceBundle properties, ResourceBundle labels, JProgressBar loadingBar, JLabel loadingText, JButton btnApply) {
+    public View(GamePanel gamePanel1, GamePanel gamePanel2, GamePanel gamePanel3,
+                ResourceBundle properties, ResourceBundle labels,
+                JProgressBar loadingBar, JLabel loadingText, JButton btnApply) {
 
-        this.titleBFME1 = titleBFME1;
-        this.titleBFME2 = titleBFME2;
-        this.titleBFME3 = titleBFME3;
-
-        this.title1Res = title1Res;
-        this.title2Res = title2Res;
-        this.title3Res = title3Res;
-
-        this.title1Maps = title1Maps;
-        this.title2Maps = title2Maps;
-        this.title3Maps = title3Maps;
-
-        this.title1Hud = title1Hud;
-        this.title2Hud = title2Hud;
-        this.title3Hud = title3Hud;
-
-        this.comboBox1Res = comboBox1Res;
-        this.comboBox2Res = comboBox2Res;
-        this.comboBox3Res = comboBox3Res;
-
-        this.comboBox1Maps = comboBox1Maps;
-        this.comboBox2Maps = comboBox2Maps;
-        this.comboBox3Maps = comboBox3Maps;
-
-        this.comboBox1Hud = comboBox1Hud;
-        this.comboBox2Hud = comboBox2Hud;
-        this.comboBox3Hud = comboBox3Hud;
-
-        this.label1Install = label1Install;
-        this.label2Install = label2Install;
-        this.label3Install = label3Install;
-
-        this.label1Patch = label1Patch;
-        this.label2Patch = label2Patch;
-        this.label3Patch = label3Patch;
-
-        this.label1Running = label1Running;
-        this.label2Running = label2Running;
-        this.label3Running = label3Running;
+        this.gamePanel1 = gamePanel1;
+        this.gamePanel2 = gamePanel2;
+        this.gamePanel3 = gamePanel3;
 
         this.properties = properties;
         this.labels = labels;
@@ -112,16 +51,11 @@ public class View {
     }
 
     public void renderGame(GameID gameID, Display display) {
+        Game game = controller.getGame(gameID);
         switch (gameID) {
-            case BFME1: renderGame(controller.getGame(gameID), titleBFME1,
-                    title1Res, title1Maps, title1Hud, label1Install, label1Patch, label1Running,
-                    comboBox1Res, comboBox1Maps, comboBox1Hud, display); break;
-            case BFME2: renderGame(controller.getGame(gameID), titleBFME2,
-                    title2Res, title2Maps, title2Hud, label2Install, label2Patch, label2Running,
-                    comboBox2Res, comboBox2Maps, comboBox2Hud, display); break;
-            case ROTWK: renderGame(controller.getGame(gameID), titleBFME3,
-                    title3Res, title3Maps, title3Hud, label3Install, label3Patch, label3Running,
-                    comboBox3Res, comboBox3Maps, comboBox3Hud, display); break;
+            case BFME1: gamePanel1.updatePanel(game, display); break;
+            case BFME2: gamePanel2.updatePanel(game, display); break;
+            case ROTWK: gamePanel3.updatePanel(game, display); break;
         }
     }
 

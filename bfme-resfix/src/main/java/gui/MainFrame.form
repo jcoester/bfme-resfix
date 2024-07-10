@@ -85,17 +85,17 @@
           <text value="."/>
         </properties>
       </component>
-      <nested-form id="abfd" form-file="gui/GameFrame.form" binding="gameFrame2" default-binding="true">
+      <nested-form id="abfd" form-file="gui/GamePanel.form" binding="gamePanel2" default-binding="true">
         <constraints>
           <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
       </nested-form>
-      <nested-form id="14e73" form-file="gui/GameFrame.form" binding="gameFrame1" default-binding="true">
+      <nested-form id="14e73" form-file="gui/GamePanel.form" binding="gamePanel1" default-binding="true">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
       </nested-form>
-      <nested-form id="478d2" form-file="gui/GameFrame.form" binding="gameFrame3" default-binding="true">
+      <nested-form id="478d2" form-file="gui/GamePanel.form" binding="gamePanel3" default-binding="true">
         <constraints>
           <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
