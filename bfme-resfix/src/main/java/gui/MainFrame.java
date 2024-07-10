@@ -45,6 +45,9 @@ public class MainFrame extends JFrame {
     private JButton btnApply;
     private JProgressBar loadingBar;
     private JLabel loadingText;
+    private GameFrame gameFrame1;
+    private GameFrame gameFrame2;
+    private GameFrame gameFrame3;
 
     public MainFrame() {
         // Init Resources
