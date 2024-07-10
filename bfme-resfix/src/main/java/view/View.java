@@ -53,27 +53,26 @@ public class View {
     public void renderGame(GameID gameID, Display display) {
         Game game = controller.getGame(gameID);
         switch (gameID) {
-            case BFME1: gamePanel1.updatePanel(game, display); break;
-            case BFME2: gamePanel2.updatePanel(game, display); break;
-            case ROTWK: gamePanel3.updatePanel(game, display); break;
+            case BFME1: renderGame(gamePanel1, game, display); break;
+            case BFME2: renderGame(gamePanel2, game, display); break;
+            case ROTWK: renderGame(gamePanel3, game, display); break;
         }
     }
 
-    private void renderGame(Game game, JLabel title, JLabel resTitle, JLabel mapsTitle, JLabel hudTitle, JLabel installLabel, JLabel patchLabel, JLabel runningLabel, JComboBox<Resolution> resComboBox, JComboBox<Maps> mapsComboBox, JComboBox<HUD> hudComboBox, Display display) {
+    private void renderGame(GamePanel gamePanel, Game game, Display display) {
         if (game == null)
             return;
 
-        boolean installed = game.isInstalled();
-        title.setEnabled(installed);
-        resTitle.setEnabled(installed);
-        mapsTitle.setEnabled(installed);
-        hudTitle.setEnabled(installed);
+        gamePanel.titleBFME.setEnabled(game.isInstalled());
+        gamePanel.titleRes.setEnabled(game.isInstalled());
+        gamePanel.titleMaps.setEnabled(game.isInstalled());
+        gamePanel.titleHud.setEnabled(game.isInstalled());
 
-        setInstallationLabel(game, installLabel, patchLabel);
-        setRunningLabel(game, runningLabel);
-        setComboBoxResolution(game, resComboBox, labels, display);
-        setComboBoxMaps(game, mapsComboBox, labels);
-        setComboBoxHud(game, hudComboBox, labels);
+        //setInstallationLabel(game, installLabel, patchLabel);
+        //setRunningLabel(game, runningLabel);
+        //setComboBoxResolution(game, resComboBox, labels, display);
+        //setComboBoxMaps(game, mapsComboBox, labels);
+        //setComboBoxHud(game, hudComboBox, labels);
     }
 
     private void setRunningLabel(Game game, JLabel runningLabel) {

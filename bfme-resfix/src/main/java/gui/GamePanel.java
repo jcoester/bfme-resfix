@@ -9,15 +9,15 @@ public class GamePanel extends JPanel {
     private JComboBox<Resolution> comboBoxRes;
     private JComboBox<Maps> comboBoxMaps;
     private JComboBox<HUD> comboBoxHud;
-    private JLabel labelRunning;
-    private JLabel labelInstall;
-    private JLabel labelSpacer;
-    private JLabel labelPatch;
-    private JLabel titleBFME;
-    private JPanel gamePanel;
-    private JLabel titleRes;
-    private JLabel titleMaps;
-    private JLabel titleHud;
+    public JLabel labelRunning;
+    public JLabel labelInstall;
+    public JLabel labelSpacer;
+    public JLabel labelPatch;
+    public JLabel titleBFME;
+    public JPanel gamePanel;
+    public JLabel titleRes;
+    public JLabel titleMaps;
+    public JLabel titleHud;
 
     public GamePanel() {
 
