@@ -2,13 +2,10 @@ package view;
 
 import controller.Controller;
 import filemanager.PatchManager;
-import helper.ExceptionHandler;
 import helper.SoundPlayer;
 import model.*;
 
 import javax.swing.*;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -348,93 +345,13 @@ public class GameView extends JPanel {
     }
 
     public <T> void setupComboBoxSounds(JComboBox<T> comboBox) {
-        boolean[] initializationComplete = {false};
-        final boolean[] isMouseInsideComboBox = {false};
-
-        comboBox.addPopupMenuListener(new PopupMenuListener() {
-            private int lastHoveredIndex = -1;
-
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                initializationComplete[0] = true;
-                JList<?> list = getPopupList(comboBox);
-                if (list != null) {
-                    list.addMouseMotionListener(new MouseAdapter() {
-                        @Override
-                        public void mouseMoved(MouseEvent e) {
-                            int hoverIndex = list.locationToIndex(e.getPoint());
-                            if (hoverIndex != lastHoveredIndex && comboBox.isEnabled() && !isMouseInsideComboBox[0]) {
-                                SoundPlayer.playSound(comboBox.getUIClassID(), "Hover.wav", "mouseMoved");
-                                lastHoveredIndex = hoverIndex;
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                lastHoveredIndex = -1; // Reset hover index when popup is closed
-            }
-
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-                lastHoveredIndex = -1; // Reset hover index when popup is canceled
-            }
-        });
-
         comboBox.addActionListener(e -> {
             // Check if the update was programmatic
             if (isProgrammaticUpdate[0]) {
                 return; // Do nothing if the update was programmatic
             }
-            if (initializationComplete[0] && comboBox.isEnabled()) {
-                SoundPlayer.playSound(comboBox.getUIClassID(), "Press.wav", "actionPerformed");
-            }
+            SoundPlayer.playSound(comboBox.getUIClassID(), "Press.wav", "actionPerformed");
         });
-
-        comboBox.addMouseListener(new MouseAdapter() {
-            private boolean isHovered = false;
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!isHovered && comboBox.isEnabled()) {
-                    SoundPlayer.playSound(comboBox.getUIClassID(), "Hover.wav", "mouseEntered");
-                    isHovered = true;
-                }
-                isMouseInsideComboBox[0] = true;
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                isHovered = false;
-                isMouseInsideComboBox[0] = false;
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (comboBox.isEnabled()) {
-                    SoundPlayer.playSound(comboBox.getUIClassID(), "Press.wav", "mouseClicked");
-                }
-            }
-        });
-    }
-
-    // Helper method to get the JList used in the JComboBox popup
-    private static JList<?> getPopupList(JComboBox<?> comboBox) {
-        try {
-            // Access private field using reflection to get the JList
-            Component popupMenu = (Component) comboBox.getUI().getAccessibleChild(comboBox, 0);
-            if (popupMenu instanceof JPopupMenu) {
-                JScrollPane scrollPane = (JScrollPane) ((JPopupMenu) popupMenu).getComponent(0);
-                if (scrollPane.getViewport().getView() instanceof JList) {
-                    return (JList<?>) scrollPane.getViewport().getView();
-                }
-            }
-        } catch (Exception e) {
-            ExceptionHandler.getInstance().handleException("getPopupList", e);
-        }
-        return null;
     }
 
     @Override
