@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import helper.ExceptionHandler;
 import helper.SoundPlayer;
 import model.*;
 
@@ -12,16 +13,19 @@ import java.util.*;
 import static model.GameID.*;
 
 public class MainView extends JFrame {
+    private static final String HOVER_WAV = "Hover.wav";
+    private static final String PRESS_WAV = "Press.wav";
     private final EnumMap<GameID, GameView> gameViews;
     private final ResourceBundle labels;
     private final ResourceBundle properties;
     private GameView gameView1;
     private GameView gameView2;
     private GameView gameView3;
-    private JButton button;
+    private JButton applyButton;
     private JLabel progressText;
     private JProgressBar progressBar;
     private JPanel root;
+    private JButton helpButton;
 
     public MainView(ResourceBundle properties, ResourceBundle labels) {
         this.labels = labels;
@@ -35,17 +39,7 @@ public class MainView extends JFrame {
 
             this.progressText.setText("\u00A0"); // Empty progressText to keep occupy space
 
-            button.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    if (button.isEnabled()) SoundPlayer.playSound("button", "Hover.wav", "mouseEntered");
-                }
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (button.isEnabled()) SoundPlayer.playSound("button", "Press.wav", "mouseClicked");
-                }
-            });
+            addButtonListeners();
         });
 
         // Initialize gameViews map
@@ -53,6 +47,48 @@ public class MainView extends JFrame {
         gameViews.put(BFME1, gameView1);
         gameViews.put(BFME2, gameView2);
         gameViews.put(ROTWK, gameView3);
+    }
+
+    private void addButtonListeners() {
+        applyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (applyButton.isEnabled()) SoundPlayer.playSound(HOVER_WAV);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (applyButton.isEnabled()) SoundPlayer.playSound(PRESS_WAV);
+            }
+        });
+
+        helpButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                SoundPlayer.playSound(HOVER_WAV);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SoundPlayer.playSound(PRESS_WAV);
+                openHelp();
+            }
+        });
+    }
+
+    private static void openHelp() {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    desktop.browse(new java.net.URI("https://github.com/jcoester/bfme-resfix"));
+                } catch (Exception e) {
+                    ExceptionHandler.getInstance().promptError("Error in openHelp()", e);
+                }
+            }
+        } else {
+            ExceptionHandler.getInstance().promptError("Desktop is not supported on this platform.", null);
+        }
     }
 
     public void setController(Controller controller) {
@@ -68,7 +104,7 @@ public class MainView extends JFrame {
     }
 
     public void addButtonListener(ActionListener listener) {
-        button.addActionListener(listener);
+        applyButton.addActionListener(listener);
     }
 
     public void renderGame(Game game, Display display) {
@@ -94,12 +130,12 @@ public class MainView extends JFrame {
     }
 
     public void disableUI() {
-        button.setEnabled(false);
+        applyButton.setEnabled(false);
         progressBar.setIndeterminate(true);
     }
 
     public void enableUI() {
-        button.setEnabled(true);
+        applyButton.setEnabled(true);
         progressBar.setIndeterminate(false);
     }
 

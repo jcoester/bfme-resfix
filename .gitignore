@@ -26,3 +26,4 @@ replay_pid*
 # project paths
 /bfme-resfix/out/artifacts
 /bfme-resfix/src/main/resources/firebase
+bfme-resfix/.idea/workspace.xml

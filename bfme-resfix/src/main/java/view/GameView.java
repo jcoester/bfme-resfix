@@ -106,12 +106,12 @@ public class GameView extends JPanel {
                         labelPatch.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mouseEntered(MouseEvent e) {
-                                SoundPlayer.playSound("labelPatch", HOVER_WAV, "mouseEntered");
+                                SoundPlayer.playSound(HOVER_WAV);
                             }
 
                             @Override
                             public void mouseClicked(MouseEvent e) {
-                                SoundPlayer.playSound("labelPatch", PRESS_WAV, "mouseClicked");
+                                SoundPlayer.playSound(PRESS_WAV);
 
                                 SwingUtilities.invokeLater(() -> {
                                     mainView.disableUI();
@@ -350,7 +350,7 @@ public class GameView extends JPanel {
             if (isProgrammaticUpdate[0]) {
                 return; // Do nothing if the update was programmatic
             }
-            SoundPlayer.playSound(comboBox.getUIClassID(), "Press.wav", "actionPerformed");
+            SoundPlayer.playSound(PRESS_WAV);
         });
     }
 

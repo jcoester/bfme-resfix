@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class SoundPlayer {
 
-    public static void playSound(String source, String soundFileName, String s) {
+    public static void playSound(String soundFileName) {
         try {
             // Load the audio resource from the JAR
             InputStream resourceStream = SoundPlayer.class.getResourceAsStream("/audio/" + soundFileName);
@@ -26,7 +26,7 @@ public class SoundPlayer {
 
                 // Debug time and source of sound
                 String formattedTime = LocalTime.now().format(DateTimeFormatter.ofPattern("mm:ss.SSS"));
-                System.err.println(formattedTime + " " + soundFileName + " " + source + " " + s);
+                System.err.println(formattedTime + " " + soundFileName);
             }
         } catch (Exception e) {
             ExceptionHandler.getInstance().promptError("playSound", e);
