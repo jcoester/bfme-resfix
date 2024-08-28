@@ -166,8 +166,36 @@ public class Controller {
                 listener.resume();
                 changes = true;
             }
+
+            // DVD
+            DVD selectedDVD = mainView.getGameView(game.getId()).getDVDSelectedItem();
+            if (selectedDVD != null && !selectedDVD.equals(game.getDvd())) {
+                listener.pause();
+                handleDVDSelection(game, selectedDVD);
+                listener.resume();
+                changes = true;
+            }
         }
         return changes;
+    }
+
+    private void handleDVDSelection(Game game, DVD selectedDVD) {
+        logger.info("handleDVDSelection(): {}: {} > {}", game.getId(), game.getDvd().isOriginal(), selectedDVD.isOriginal());
+        DVD dvd = game.getDvd();
+
+        // A: Restore Original from Backup
+        if (selectedDVD.isOriginal()) {
+            logger.info("handleDVDSelection(): Restore Original from Backup");
+            boolean result = BigManager.copyBigFileFromTo(dvd.getBackupPath(), dvd.getFilePath(), labels); // Restore from Backup
+            if (result) BigManager.removeBigFile(dvd.getBackupPath(), labels); // Delete previous Backup
+
+        // B: Create Backup, then override
+        } else {
+            URL dvdFile = GitHub.getDvdURL(game.getId(), properties);
+            logger.info("handleDVDSelection(): Create Backup, then override");
+            boolean result = BigManager.copyBigFileFromTo(dvd.getFilePath(), dvd.getBackupPath(), labels);
+            if (result) BigManager.downloadBigFile(dvdFile, dvd.getFilePath(), mainView.getProgressBar(), mainView.getProgressText(), labels);
+        }
     }
 
     private void handleResolutionSelection(Game game, Resolution selectedResolution) {
@@ -322,6 +350,10 @@ public class Controller {
         SwingUtilities.invokeLater(() -> mainView.renderHudBox(getGame(gameID)));
     }
 
+    public void updateDVDBox(GameID gameID) {
+        SwingUtilities.invokeLater(() -> mainView.renderDVDBox(getGame(gameID)));
+    }
+
     public void updateAllResBoxes() {
         SwingUtilities.invokeLater(() -> {
             mainView.renderResBox(getGame(BFME1), display);
@@ -329,4 +361,6 @@ public class Controller {
             mainView.renderResBox(getGame(ROTWK), display);
         });
     }
+
+
 }

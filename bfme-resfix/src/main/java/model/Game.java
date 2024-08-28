@@ -13,6 +13,7 @@ public class Game {
     private Resolution inGameResolution;
     private Maps maps;
     private HUD hud;
+    private DVD dvd;
     private boolean isInstalled;
     private boolean isPatched;
     private boolean isRunning;
@@ -116,16 +117,24 @@ public class Game {
         isRunning = running;
     }
 
+    public DVD getDvd() {
+        return dvd;
+    }
+
+    public void setDvd(DVD dvd) {
+        this.dvd = dvd;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud);
+        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud) && Objects.equals(dvd, game.dvd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, language, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, isInstalled, isPatched, isRunning);
+        return Objects.hash(id, language, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, dvd, isInstalled, isPatched, isRunning);
     }
 }

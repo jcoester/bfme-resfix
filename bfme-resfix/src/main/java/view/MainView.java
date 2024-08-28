@@ -156,6 +156,10 @@ public class MainView extends JFrame {
         gameViews.get(game.getId()).renderHudBox(game);
     }
 
+    public void renderDVDBox(Game game) {
+        gameViews.get(game.getId()).renderDVDBox(game);
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);

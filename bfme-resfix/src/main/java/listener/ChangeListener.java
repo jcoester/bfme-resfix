@@ -112,7 +112,7 @@ public class ChangeListener {
             Maps maps = new Maps();
             maps.setFilePath(Paths.get(currentInstallPath + "/Maps.big"));
             maps.setBackupPath(Paths.get(currentInstallPath + "/Maps_Backup.big"));
-            maps.setHash(retrieveMapsBigHash(maps.getFilePath()));
+            maps.setHash(retrieveHash(maps.getFilePath()));
             maps.setAspectRatio(retrieveMapsAspectRatio(maps.getHash()));
             maps.setBackup(Files.exists(maps.getBackupPath()));
             game.setMaps(maps);
@@ -121,6 +121,13 @@ public class ChangeListener {
             hud.setFilePath(Paths.get(currentInstallPath + "/_unstretched-hud.big"));
             hud.setOriginal(Files.notExists(hud.getFilePath()));
             game.setHud(hud);
+
+            DVD dvd = new DVD();
+            dvd.setFilePath(Paths.get(currentInstallPath + "/game.dat"));
+            dvd.setBackupPath(Paths.get(currentInstallPath + "/game_Backup.dat"));
+            dvd.setHash(retrieveHash(dvd.getFilePath()));
+            dvd.setOriginal(retrieveGameDatVersion(dvd.getHash()));
+            game.setDvd(dvd);
 
             if (previousInstallPath != null) {
                 unregisterListener(previousInstallPath);
@@ -254,7 +261,7 @@ public class ChangeListener {
         } else if (filePath.toString().contains("Maps.big")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             Maps maps = game.getMaps();
-            maps.setHash(retrieveMapsBigHash(filePath));
+            maps.setHash(retrieveHash(filePath));
             maps.setAspectRatio(retrieveMapsAspectRatio(maps.getHash()));
             game.setMaps(maps);
 
@@ -275,6 +282,15 @@ public class ChangeListener {
             game.setHud(hud);
 
             controller.updateHudBox(game.getId());
+
+        } else if (filePath.toString().contains("game.dat")) {
+            System.out.println("NEW " + gameId + ": Modified: " + filePath);
+            DVD dvd = game.getDvd();
+            dvd.setHash(retrieveHash(filePath));
+            dvd.setOriginal(retrieveGameDatVersion(dvd.getHash()));
+            game.setDvd(dvd);
+
+            controller.updateDVDBox(game.getId());
         }
     }
 

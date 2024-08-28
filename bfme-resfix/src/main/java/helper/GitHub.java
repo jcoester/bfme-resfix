@@ -99,4 +99,15 @@ public class GitHub {
             return null;
         }
     }
+
+    public static URL getDvdURL(GameID id, ResourceBundle properties) {
+        try {
+            return new URL("https://github.com/" +
+                    properties.getString("storage") + "/blob/main/NoDVD/" +
+                    "game_" + id + "_noDVD.dat?raw=1");
+        } catch (Exception e) {
+            logger.error("Error in getDvdURL()", e);
+            return null;
+        }
+    }
 }

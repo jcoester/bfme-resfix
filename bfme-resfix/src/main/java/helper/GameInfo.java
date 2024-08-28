@@ -109,7 +109,7 @@ public class GameInfo {
         }
     }
 
-    public static String retrieveMapsBigHash(Path path) {
+    public static String retrieveHash(Path path) {
         if (path != null)
             return generateSHA256(new File(path.toUri()));
         else
@@ -159,6 +159,18 @@ public class GameInfo {
         aspectRatioMap.put("e515061a2645f5f74f14c57aa7eecbf2823f4a8b3cca16a6ca01aa24521e9aee", "16:9"); // ROTWK 16:9 Mod
 
         return aspectRatioMap.get(givenHash);
+    }
+
+    public static Boolean retrieveGameDatVersion(String givenHash) {
+        if (givenHash == null)
+            return null;
+
+        List<String> hashes = new ArrayList<>();
+        hashes.add("bd2e2071afa49153e69de64c3f6f4ed9ae1cdb58cd7aa6a7bb89a98747eff694"); // BFME1 NoDVD Crack
+        hashes.add("f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640"); // BFME2 NoDVD Crack
+        hashes.add("7f55131708c24908e5dab934e737b5618e1302d17639cbc5c9560a21bb3336c6"); // ROTWK NoDVD Crack
+
+        return !hashes.contains(givenHash);
     }
 
     public static Map<String, Boolean> retrieveGamesRunningStatus() {

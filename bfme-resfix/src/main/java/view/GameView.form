@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="view.GameView">
-  <grid id="27dc6" binding="root" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="root" layout-manager="GridLayoutManager" row-count="11" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="25" y="25" width="284" height="330"/>
+      <xy x="25" y="25" width="284" height="405"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -84,7 +84,7 @@
       </component>
       <component id="d6241" class="javax.swing.JLabel" binding="titleMaps">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <labelFor value="7cedd"/>
@@ -93,7 +93,27 @@
       </component>
       <component id="7cedd" class="javax.swing.JComboBox" binding="comboBoxMaps">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="180" height="45"/>
+          </grid>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <model/>
+        </properties>
+      </component>
+      <component id="3bef" class="javax.swing.JLabel" binding="titleDVD">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <labelFor value="f0654"/>
+          <text resource-bundle="labels" key="title.no_dvd"/>
+        </properties>
+      </component>
+      <component id="a7aaf" class="javax.swing.JComboBox" binding="comboBoxDVD">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="180" height="45"/>
           </grid>
         </constraints>
@@ -104,7 +124,7 @@
       </component>
       <component id="60632" class="javax.swing.JLabel" binding="titleHud">
         <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <labelFor value="f0654"/>
@@ -113,7 +133,7 @@
       </component>
       <component id="f0654" class="javax.swing.JComboBox" binding="comboBoxHud">
         <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="180" height="45"/>
           </grid>
         </constraints>
