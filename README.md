@@ -10,6 +10,7 @@
 - Includes the latest official game patches
 - Enables Widescreen resolutions up to 4K or higher
 - Retains the original HUD, Zoom, and Fog
+- Requires no physical or virtual disks
 
 # How to use
 
