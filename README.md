@@ -16,7 +16,7 @@
 
 [Download tool here](https://github.com/jcoester/bfme-resfix/releases)
 
-*Note: The games are expected to be installed separately. Please use your physical disk or the provided [virtual disks](https://www.mediafire.com/folder/qipu589jehkpm/The_Battle_for_Middle_Earth_Anthology).*
+*Note: The games are expected to be installed separately. Please use your physical disk or the provided [ISO files](https://www.mediafire.com/folder/qipu589jehkpm/The_Battle_for_Middle_Earth_Anthology).*
 
 [![Click the image to watch the Video Demo](https://github.com/jcoester/bfme-resfix/blob/main/images/Thumbnail.jpg)](https://youtu.be/4pJYwUAgK-g)
 
