@@ -160,6 +160,10 @@ public class MainView extends JFrame {
         gameViews.get(game.getId()).renderDVDBox(game);
     }
 
+    public void renderIntroBox(Game game) {
+        gameViews.get(game.getId()).renderIntroBox(game);
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);

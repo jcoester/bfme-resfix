@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -175,8 +178,51 @@ public class Controller {
                 listener.resume();
                 changes = true;
             }
+
+            // DVD
+            Intro selectedIntro = mainView.getGameView(game.getId()).getIntroSelectedItem();
+            if (selectedIntro != null && !selectedIntro.equals(game.getIntro())) {
+                listener.pause();
+                handleIntroSelection(game, selectedIntro);
+                listener.resume();
+                changes = true;
+            }
         }
         return changes;
+    }
+
+    private void handleIntroSelection(Game game, Intro selectedIntro) {
+        logger.info("handleIntroSelection(): {}: {} > {}", game.getId(), game.getIntro().isOriginal(), selectedIntro.isOriginal());
+
+        Path root = Paths.get(game.getInstallationPath() + "/data/movies/");
+        List<Path> fileList = new ArrayList<>();
+        fileList.add(Paths.get(root + "/NewLineLogo.vp6"));
+        fileList.add(Paths.get(root + "/EALogo.vp6")); // ALL
+        if (game.getId().equals(BFME1)) {
+            fileList.add(Paths.get(root + "/intel.vp6"));
+            fileList.add(Paths.get(root + "/THX.vp6"));
+        } else if (game.getId().equals(BFME2) || game.getId().equals(ROTWK))  {
+            fileList.add(Paths.get(root + "/NLC_LOGO.vp6"));
+            fileList.add(Paths.get(root + "/TE_LOGO.vp6"));
+        }
+
+        // A: Restore Original from Backup
+        if (selectedIntro.isOriginal()) {
+            logger.info("handleIntroSelection(): Restore Original from Backup");
+            for (Path file : fileList) {
+                Path backupFile = Paths.get(file + ".bak");
+                boolean result = BigManager.copyBigFileFromTo(backupFile, file, labels); // Restore from Backup
+                if (result) BigManager.removeBigFile(backupFile, labels); // Delete previous Backup
+            }
+
+        // B: Create Backup, then remove
+        } else {
+            for (Path file : fileList) {
+                Path backupFile = Paths.get(file + ".bak");
+                boolean result = BigManager.copyBigFileFromTo(file, backupFile, labels); // Restore from Backup
+                if (result) BigManager.removeBigFile(file, labels); // Delete previous Backup
+            }
+        }
     }
 
     private void handleDVDSelection(Game game, DVD selectedDVD) {
@@ -352,6 +398,10 @@ public class Controller {
 
     public void updateDVDBox(GameID gameID) {
         SwingUtilities.invokeLater(() -> mainView.renderDVDBox(getGame(gameID)));
+    }
+
+    public void updateIntroBox(GameID gameID) {
+        SwingUtilities.invokeLater(() -> mainView.renderIntroBox(getGame(gameID)));
     }
 
     public void updateAllResBoxes() {

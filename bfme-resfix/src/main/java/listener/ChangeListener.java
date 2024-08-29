@@ -129,14 +129,23 @@ public class ChangeListener {
             dvd.setOriginal(retrieveGameDatVersion(dvd.getHash()));
             game.setDvd(dvd);
 
+            Intro intro = new Intro();
+            intro.setFilePath(Paths.get(currentInstallPath + "/data/movies/NewLineLogo.vp6"));
+            intro.setBackupPath(Paths.get(currentInstallPath + "/data/movies/NewLineLogo.vp6.bak"));
+            intro.setOriginal(Files.exists(intro.getFilePath()));
+            game.setIntro(intro);
+
             if (previousInstallPath != null) {
                 unregisterListener(previousInstallPath);
                 unregisterListener(previousUserDataPath);
+                unregisterListener(Paths.get(previousInstallPath + "/data/movies"));
                 System.out.println("NEW " + game.getId() + ": Registered: " + monitoredPaths);
             }
             if (currentInstallPath != null) {
                 registerListener(currentInstallPath, game.getId());
                 registerListener(currentUserDataPath, game.getId());
+                registerListener(Paths.get(currentInstallPath + "/data/movies"), game.getId());
+
                 System.out.println("NEW " + game.getId() + ": Registered: " + monitoredPaths);
             }
 
@@ -249,7 +258,7 @@ public class ChangeListener {
         }
 
         // Handle File changes
-        if (filePath.toString().contains("Options.ini")) {
+        if (filePath.toString().endsWith("Options.ini")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             game.setInGameResolution(retrieveResolution(filePath));
 
@@ -258,7 +267,7 @@ public class ChangeListener {
             controller.resolutionTooHighFeedback(game);
             controller.resolution32_9Feedback(game);
 
-        } else if (filePath.toString().contains("Maps.big")) {
+        } else if (filePath.toString().endsWith("Maps.big")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             Maps maps = game.getMaps();
             maps.setHash(retrieveHash(filePath));
@@ -267,7 +276,7 @@ public class ChangeListener {
 
             controller.updateMapsBox(game.getId());
 
-        } else if (filePath.toString().contains("Maps_Backup.big")) {
+        } else if (filePath.toString().endsWith("Maps_Backup.big")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             Maps maps = game.getMaps();
             maps.setBackup(Files.exists(filePath));
@@ -275,7 +284,7 @@ public class ChangeListener {
 
             controller.updateMapsBox(game.getId());
 
-        } else if (filePath.toString().contains("_unstretched-hud.big")) {
+        } else if (filePath.toString().endsWith("_unstretched-hud.big")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             HUD hud = game.getHud();
             hud.setOriginal(Files.notExists(filePath));
@@ -283,7 +292,7 @@ public class ChangeListener {
 
             controller.updateHudBox(game.getId());
 
-        } else if (filePath.toString().contains("game.dat")) {
+        } else if (filePath.toString().endsWith("game.dat")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             DVD dvd = game.getDvd();
             dvd.setHash(retrieveHash(filePath));
@@ -291,6 +300,14 @@ public class ChangeListener {
             game.setDvd(dvd);
 
             controller.updateDVDBox(game.getId());
+
+        } else if (filePath.toString().endsWith("NewLineLogo.vp6")) {
+            System.out.println("NEW " + gameId + ": Modified: " + filePath);
+            Intro intro = game.getIntro();
+            intro.setOriginal(Files.exists(intro.getFilePath()));
+            game.setIntro(intro);
+
+            controller.updateIntroBox(game.getId());
         }
     }
 

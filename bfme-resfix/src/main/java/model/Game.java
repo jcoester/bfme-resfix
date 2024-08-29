@@ -14,6 +14,7 @@ public class Game {
     private Maps maps;
     private HUD hud;
     private DVD dvd;
+    private Intro intro;
     private boolean isInstalled;
     private boolean isPatched;
     private boolean isRunning;
@@ -125,16 +126,24 @@ public class Game {
         this.dvd = dvd;
     }
 
+    public Intro getIntro() {
+        return intro;
+    }
+
+    public void setIntro(Intro intro) {
+        this.intro = intro;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud) && Objects.equals(dvd, game.dvd);
+        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud) && Objects.equals(dvd, game.dvd) && Objects.equals(intro, game.intro);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, language, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, dvd, isInstalled, isPatched, isRunning);
+        return Objects.hash(id, language, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, dvd, intro, isInstalled, isPatched, isRunning);
     }
 }
