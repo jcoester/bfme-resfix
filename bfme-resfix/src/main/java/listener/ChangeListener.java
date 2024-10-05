@@ -99,6 +99,11 @@ public class ChangeListener {
         boolean previousIsRunning = game.isRunning();
         boolean currentIsRunning = retrieveGameRunningFlag(game, runningStatus);
 
+        boolean previousCompatibilityMode = false;
+        if (game.getCompatibilityMode() != null)
+            previousCompatibilityMode = game.getCompatibilityMode().isOriginal();
+        boolean currentCompatibilityMode = retrieveCompatibilityMode(game);
+
         // Handle InstallPath
         if (areDifferent(currentInstallPath, previousInstallPath)) {
             Path previousUserDataPath = game.getUserDataPath();
@@ -134,6 +139,11 @@ public class ChangeListener {
             intro.setBackupPath(Paths.get(currentInstallPath + "/data/movies/NewLineLogo.vp6.bak"));
             intro.setOriginal(Files.exists(intro.getFilePath()));
             game.setIntro(intro);
+
+            CompatibilityMode compatibilityMode = new CompatibilityMode();
+            compatibilityMode.setOriginal(retrieveCompatibilityMode(game));
+            game.setCompatibilityMode(compatibilityMode);
+            currentCompatibilityMode = game.getCompatibilityMode().isOriginal();
 
             if (previousInstallPath != null) {
                 unregisterListener(previousInstallPath);
@@ -173,6 +183,17 @@ public class ChangeListener {
         if (areDifferent(currentIsRunning, previousIsRunning)) {
             System.out.println("NEW " + game.getId() + ": Running: " + previousIsRunning + " > " + currentIsRunning);
             game.setRunning(currentIsRunning);
+
+            controller.updateGameView(game.getId());
+        }
+
+        // Handle Compatibility Mode
+        if (areDifferent(currentCompatibilityMode, previousCompatibilityMode)) {
+            System.out.println("NEW " + game.getId() + ": Compatibility Mode: " + previousCompatibilityMode + " > " + currentCompatibilityMode);
+
+            CompatibilityMode compatibilityMode = new CompatibilityMode();
+            compatibilityMode.setOriginal(retrieveCompatibilityMode(game));
+            game.setCompatibilityMode(compatibilityMode);
 
             controller.updateGameView(game.getId());
         }

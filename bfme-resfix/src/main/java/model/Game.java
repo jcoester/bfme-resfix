@@ -15,6 +15,7 @@ public class Game {
     private HUD hud;
     private DVD dvd;
     private Intro intro;
+    private CompatibilityMode compatibilityMode;
     private boolean isInstalled;
     private boolean isPatched;
     private boolean isRunning;
@@ -134,16 +135,24 @@ public class Game {
         this.intro = intro;
     }
 
+    public CompatibilityMode getCompatibilityMode() {
+        return compatibilityMode;
+    }
+
+    public void setCompatibilityMode(CompatibilityMode compatibilityMode) {
+        this.compatibilityMode = compatibilityMode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud) && Objects.equals(dvd, game.dvd) && Objects.equals(intro, game.intro);
+        return isInstalled == game.isInstalled && isPatched == game.isPatched && isRunning == game.isRunning && id == game.id && Objects.equals(language, game.language) && Objects.equals(compatibilityMode, game.compatibilityMode) && Objects.equals(installationPath, game.installationPath) && Objects.equals(userDataPath, game.userDataPath) && Objects.equals(versionInstalled, game.versionInstalled) && Objects.equals(versionAvailablePatch, game.versionAvailablePatch) && Objects.equals(inGameResolution, game.inGameResolution) && Objects.equals(maps, game.maps) && Objects.equals(hud, game.hud) && Objects.equals(dvd, game.dvd) && Objects.equals(intro, game.intro);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, language, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, dvd, intro, isInstalled, isPatched, isRunning);
+        return Objects.hash(id, language, compatibilityMode, installationPath, userDataPath, versionInstalled, versionAvailablePatch, inGameResolution, maps, hud, dvd, intro, isInstalled, isPatched, isRunning);
     }
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinReg;
 import filemanager.BigManager;
 import filemanager.IniManager;
 import listener.ChangeListener;
@@ -7,6 +9,7 @@ import helper.ExceptionHandler;
 import helper.GitHub;
 import model.*;
 import model.updateCheck.Release;
+import org.jetbrains.annotations.NotNull;
 import view.MainView;
 
 import javax.swing.*;
@@ -179,7 +182,7 @@ public class Controller {
                 changes = true;
             }
 
-            // DVD
+            // Intro
             Intro selectedIntro = mainView.getGameView(game.getId()).getIntroSelectedItem();
             if (selectedIntro != null && !selectedIntro.equals(game.getIntro())) {
                 listener.pause();
@@ -187,8 +190,30 @@ public class Controller {
                 listener.resume();
                 changes = true;
             }
+
+            // Compatibility Mode
+            CompatibilityMode selectedCompMode = mainView.getGameView(game.getId()).getCompatibilityModeSelectedItem();
+            if (selectedCompMode != null && !selectedCompMode.equals(game.getCompatibilityMode())) {
+                listener.pause();
+                handleCompModeSelection(game, selectedCompMode);
+                listener.resume();
+                changes = true;
+            }
         }
         return changes;
+    }
+
+    private void handleCompModeSelection(Game game, CompatibilityMode selectedCompMode) {
+        logger.info("handleCompModeSelection(): {}: {} > {}", game.getId(), game.getCompatibilityMode().isOriginal(), selectedCompMode.isOriginal());
+
+        // A: Activate CompMode
+        if (selectedCompMode.isOriginal()) {
+            deactivateCompatibilityMode(game);
+
+        // B: Deactivate CompMode
+        } else {
+            activateCompatibilityMode(game);
+        }
     }
 
     private void handleIntroSelection(Game game, Intro selectedIntro) {
@@ -412,5 +437,27 @@ public class Controller {
         });
     }
 
+    public static void activateCompatibilityMode(Game game) {
+        String registryPath = "Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers";
+        Advapi32Util.registryCreateKey(WinReg.HKEY_CURRENT_USER, registryPath);
+        Advapi32Util.registrySetStringValue(WinReg.HKEY_CURRENT_USER, registryPath, getExePath(game), "~ WINXPSP3");
+    }
 
+    public static void deactivateCompatibilityMode(Game game) {
+        String registryPath = "Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers";
+        if (Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER, registryPath, getExePath(game))) {
+            Advapi32Util.registryDeleteValue(WinReg.HKEY_CURRENT_USER, registryPath, getExePath(game));
+        }
+    }
+
+    private static String getExePath(Game game) {
+        String exePath = "";
+        switch (game.getId()) {
+            case BFME1: exePath = game.getInstallationPath() + "\\lotrbfme.exe"; break;
+            case BFME2: exePath = game.getInstallationPath() + "\\lotrbfme2.exe"; break;
+            case ROTWK: exePath = game.getInstallationPath() + "\\lotrbfme2ep1.exe"; break;
+            default: break;
+        }
+        return exePath;
+    }
 }

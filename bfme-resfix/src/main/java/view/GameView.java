@@ -26,6 +26,7 @@ public class GameView extends JPanel {
     private JComboBox<HUD> comboBoxHud;
     private JComboBox<DVD> comboBoxDVD;
     private JComboBox<Intro> comboBoxIntro;
+    private JComboBox<CompatibilityMode> comboBoxCompMode;
     private JLabel labelRunning;
     private JLabel labelInstall;
     private JLabel labelSpacer;
@@ -36,6 +37,7 @@ public class GameView extends JPanel {
     private JLabel titleHud;
     private JLabel titleDVD;
     private JLabel titleIntro;
+    private JLabel titleCompMode;
     private JPanel root;
 
     public GameView() {
@@ -44,6 +46,7 @@ public class GameView extends JPanel {
         setupComboBoxSounds(comboBoxHud);
         setupComboBoxSounds(comboBoxDVD);
         setupComboBoxSounds(comboBoxIntro);
+        setupComboBoxSounds(comboBoxCompMode);
     }
 
     public Resolution getResolutionSelectedItem() {
@@ -66,6 +69,10 @@ public class GameView extends JPanel {
         return (Intro) comboBoxIntro.getSelectedItem();
     }
 
+    public CompatibilityMode getCompatibilityModeSelectedItem() {
+        return (CompatibilityMode) comboBoxCompMode.getSelectedItem();
+    }
+
     public void updateTitleFont(String text, Font font, Color color) {
         titleBFME.setText(text);
         titleBFME.setFont(font);
@@ -82,6 +89,7 @@ public class GameView extends JPanel {
         setComboBoxHud(game);
         setComboBoxDVD(game);
         setComboBoxIntro(game);
+        setComboBoxCompMode(game);
     }
 
     private void enableLabel(Game game) {
@@ -91,6 +99,7 @@ public class GameView extends JPanel {
         titleHud.setEnabled(game.isInstalled());
         titleDVD.setEnabled(game.isInstalled());
         titleIntro.setEnabled(game.isInstalled());
+        titleCompMode.setEnabled(game.isInstalled());
     }
 
     private void setInstallationLabel(Game game) {
@@ -407,6 +416,45 @@ public class GameView extends JPanel {
         isProgrammaticUpdate[0] = false;
     }
 
+    private void setComboBoxCompMode(Game game) {
+        isProgrammaticUpdate[0] = true;
+
+        // Default
+        comboBoxCompMode.removeAllItems();
+        comboBoxCompMode.setEnabled(false);
+        comboBoxCompMode.setRenderer(new CustomComboBoxRenderer());
+
+        // Skip
+        if (!game.isInstalled())
+            return;
+
+        // Enable
+        comboBoxCompMode.setEnabled(true);
+
+        if (game.isRunning())
+            comboBoxCompMode.setEnabled(false);
+
+        // Add items
+        CompatibilityMode noCompMode = new CompatibilityMode(true, labels.getString("cb.compMode.standard"));
+        CompatibilityMode compMode = new CompatibilityMode(false, labels.getString("cb.compMode.xp"));
+        comboBoxCompMode.addItem(noCompMode);
+        comboBoxCompMode.addItem(compMode);
+
+        // No Comp Mode
+        if (game.getCompatibilityMode().isOriginal()) {
+            noCompMode.setLabel(noCompMode.getLabel() + " -- " + labels.getString("cb.inGame"));
+            comboBoxCompMode.setSelectedItem(noCompMode);
+
+        // Comp Mode
+        } else {
+            compMode.setLabel(compMode.getLabel() + " -- " + labels.getString("cb.inGame"));
+            comboBoxCompMode.setSelectedItem(compMode);
+        }
+
+        isProgrammaticUpdate[0] = false;
+    }
+
+
     private String getVersionLabel(Game game) {
         return "<html><font color='green'>" + labels.getString("game.installed") + game.getVersionInstalled() + "</font></html>";
     }
@@ -450,6 +498,10 @@ public class GameView extends JPanel {
         setComboBoxIntro(game);
     }
 
+    public void renderCompModeBox(Game game) {
+        setComboBoxCompMode(game);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -486,6 +538,4 @@ public class GameView extends JPanel {
             }
         }
     }
-
-
 }

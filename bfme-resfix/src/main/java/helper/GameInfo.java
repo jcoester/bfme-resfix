@@ -1,6 +1,7 @@
 package helper;
 
 import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinReg;
 import model.*;
 
 import java.io.*;
@@ -198,6 +199,23 @@ public class GameInfo {
             ExceptionHandler.getInstance().handleException("isProcessRunning", e);
         }
         return runningStatus;
+    }
+
+    public static boolean retrieveCompatibilityMode(Game game) {
+        String exePath = "";
+        switch (game.getId()) {
+            case BFME1: exePath = game.getInstallationPath() + "\\lotrbfme.exe"; break;
+            case BFME2: exePath = game.getInstallationPath() + "\\lotrbfme2.exe"; break;
+            case ROTWK: exePath = game.getInstallationPath() + "\\lotrbfme2ep1.exe"; break;
+        }
+
+        String registryPath = "Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers";
+        if (Advapi32Util.registryKeyExists(WinReg.HKEY_CURRENT_USER, registryPath)) {
+            if (Advapi32Util.registryValueExists(WinReg.HKEY_CURRENT_USER, registryPath, exePath)) {
+                return !Advapi32Util.registryGetStringValue(WinReg.HKEY_CURRENT_USER, registryPath, exePath).equals("~ WINXPSP3");
+            }
+        }
+        return true;
     }
 
     public static boolean retrieveGameRunningFlag(Game game, Map<String, Boolean> runningStatus) {
