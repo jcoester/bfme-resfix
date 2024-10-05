@@ -2,8 +2,8 @@
   <library name="net.java.dev.jna.platform" type="repository">
     <properties maven-id="net.java.dev.jna:jna-platform:RELEASE" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna-platform/5.14.0/jna-platform-5.14.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna/5.14.0/jna-5.14.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna-platform/5.15.0/jna-platform-5.15.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna/5.15.0/jna-5.15.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -2,7 +2,7 @@
   <library name="jetbrains.annotations" type="repository">
     <properties maven-id="org.jetbrains:annotations:RELEASE" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/25.0.0/annotations-25.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
