@@ -34,8 +34,9 @@ public class GameView extends JPanel {
     private JLabel titleRes;
     private JLabel titleMaps;
     private JLabel titleHud;
-    private JPanel root;
     private JLabel titleDVD;
+    private JLabel titleIntro;
+    private JPanel root;
 
     public GameView() {
         setupComboBoxSounds(comboBoxRes);
@@ -89,6 +90,7 @@ public class GameView extends JPanel {
         titleMaps.setEnabled(game.isInstalled());
         titleHud.setEnabled(game.isInstalled());
         titleDVD.setEnabled(game.isInstalled());
+        titleIntro.setEnabled(game.isInstalled());
     }
 
     private void setInstallationLabel(Game game) {
@@ -380,8 +382,7 @@ public class GameView extends JPanel {
             return;
 
         // Enable
-        if (game.isPatched())
-            comboBoxIntro.setEnabled(true);
+        comboBoxIntro.setEnabled(true);
 
         if (game.isRunning())
             comboBoxIntro.setEnabled(false);

@@ -142,7 +142,7 @@
           <model/>
         </properties>
       </component>
-      <component id="a2dae" class="javax.swing.JLabel">
+      <component id="a2dae" class="javax.swing.JLabel" binding="titleIntro">
         <constraints>
           <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

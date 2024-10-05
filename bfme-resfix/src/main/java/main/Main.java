@@ -15,6 +15,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
+import static model.GameID.*;
+
 public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -39,6 +41,11 @@ public class Main {
             // ChangeListener Initialization
             ChangeListener listener = new ChangeListener(controller);
             controller.setChangeListener(listener);
+
+            // Default View
+            controller.updateGameView(BFME1);
+            controller.updateGameView(BFME2);
+            controller.updateGameView(ROTWK);
 
             // Async Initialization
             CompletableFuture<Void> initCustomFont = controller.initCustomFont();
