@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CustomComboBoxRenderer extends DefaultListCellRenderer {
-    private static final int ITEM_HEIGHT = 40; // Set your desired item height here
+    private static final int ITEM_HEIGHT = 35; // Set your desired item height here
 
     public CustomComboBoxRenderer() {
         super();
