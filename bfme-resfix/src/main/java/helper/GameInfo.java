@@ -164,7 +164,7 @@ public class GameInfo {
 
     public static Boolean retrieveGameDatVersion(String givenHash) {
         if (givenHash == null)
-            return null;
+            return false;
 
         List<String> hashes = new ArrayList<>();
         hashes.add("bd2e2071afa49153e69de64c3f6f4ed9ae1cdb58cd7aa6a7bb89a98747eff694"); // BFME1 NoDVD Crack
