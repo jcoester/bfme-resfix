@@ -8,6 +8,8 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -246,6 +248,13 @@ public class GameView extends JPanel {
         if (!game.isInstalled())
             return;
 
+        if (Files.notExists(Paths.get(game.getInstallationPath() + "/Maps.big"))) {
+            Maps placeholder = new Maps(game.getMaps().getFilePath(), null, labels.getString("cb.notAvailable"));
+            comboBoxMaps.addItem(placeholder);
+            comboBoxMaps.setSelectedItem(placeholder);
+            return;
+        }
+
         // Enable
         if (game.isPatched())
             comboBoxMaps.setEnabled(true);
@@ -342,6 +351,13 @@ public class GameView extends JPanel {
         // Skip
         if (!game.isInstalled())
             return;
+
+        if (Files.notExists(Paths.get(game.getInstallationPath() + "/game.dat"))) {
+            DVD placeholder = new DVD(game.getDvd().getFilePath(), true, labels.getString("cb.notAvailable"));
+            comboBoxDVD.addItem(placeholder);
+            comboBoxDVD.setSelectedItem(placeholder);
+            return;
+        }
 
         // Enable
         if (game.isPatched())
