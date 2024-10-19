@@ -157,7 +157,7 @@ public class Controller {
 
             // Maps
             Maps selectedMaps = mainView.getGameView(game.getId()).getMapsSelectedItem();
-            if (selectedMaps != null && !selectedMaps.equals(game.getMaps()) && game.isPatched()) {
+            if (selectedMaps != null && !selectedMaps.equals(game.getMaps()) && game.isPatched() && mainView.getGameView(game.getId()).isMapsCbActive()) {
                 listener.pause();
                 handleMapsSelection(game, selectedMaps);
                 listener.resume();
@@ -175,7 +175,7 @@ public class Controller {
 
             // DVD
             DVD selectedDVD = mainView.getGameView(game.getId()).getDVDSelectedItem();
-            if (selectedDVD != null && !selectedDVD.equals(game.getDvd())) {
+            if (selectedDVD != null && !selectedDVD.equals(game.getDvd()) && mainView.getGameView(game.getId()).isDVDCbActive()) {
                 listener.pause();
                 handleDVDSelection(game, selectedDVD);
                 listener.resume();

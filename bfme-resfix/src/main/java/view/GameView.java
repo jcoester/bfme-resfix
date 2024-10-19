@@ -554,4 +554,12 @@ public class GameView extends JPanel {
             }
         }
     }
+
+    public boolean isMapsCbActive() {
+        return comboBoxMaps.isEnabled();
+    }
+
+    public boolean isDVDCbActive() {
+        return comboBoxDVD.isEnabled();
+    }
 }
