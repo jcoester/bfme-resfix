@@ -187,7 +187,7 @@ public class GameView extends JPanel {
         comboBoxRes.setRenderer(new CustomComboBoxRenderer());
 
         // Skip
-        if (!game.isInstalled())
+        if (!game.isInstalled() || display.getAllResolutions() == null)
             return;
 
         // Enable
