@@ -9,7 +9,6 @@ import helper.ExceptionHandler;
 import helper.GitHub;
 import model.*;
 import model.updateCheck.Release;
-import org.jetbrains.annotations.NotNull;
 import view.MainView;
 
 import javax.swing.*;

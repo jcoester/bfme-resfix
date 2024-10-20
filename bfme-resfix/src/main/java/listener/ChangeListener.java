@@ -116,7 +116,7 @@ public class ChangeListener {
 
             Maps maps = new Maps();
             maps.setFilePath(Paths.get(currentInstallPath + "/Maps.big"));
-            maps.setBackupPath(Paths.get(currentInstallPath + "/Maps_Backup.big"));
+            maps.setBackupPath(Paths.get(currentInstallPath + "/Maps.big.bak"));
             maps.setHash(retrieveHash(maps.getFilePath()));
             maps.setAspectRatio(retrieveMapsAspectRatio(maps.getHash()));
             maps.setBackup(Files.exists(maps.getBackupPath()));
@@ -129,7 +129,7 @@ public class ChangeListener {
 
             DVD dvd = new DVD();
             dvd.setFilePath(Paths.get(currentInstallPath + "/game.dat"));
-            dvd.setBackupPath(Paths.get(currentInstallPath + "/game_Backup.dat"));
+            dvd.setBackupPath(Paths.get(currentInstallPath + "/game.dat.bak"));
             dvd.setHash(retrieveHash(dvd.getFilePath()));
             dvd.setOriginal(retrieveGameDatVersion(dvd.getHash()));
             game.setDvd(dvd);
@@ -297,7 +297,7 @@ public class ChangeListener {
 
             controller.updateMapsBox(game.getId());
 
-        } else if (filePath.toString().endsWith("Maps_Backup.big")) {
+        } else if (filePath.toString().endsWith("Maps.big.bak")) {
             System.out.println("NEW " + gameId + ": Modified: " + filePath);
             Maps maps = game.getMaps();
             maps.setBackup(Files.exists(filePath));

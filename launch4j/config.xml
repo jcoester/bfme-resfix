@@ -31,11 +31,11 @@
     <timeoutErr>true</timeoutErr>
   </splash>
   <versionInfo>
-    <fileVersion>0.8.4.0</fileVersion>
+    <fileVersion>0.9.0.0</fileVersion>
     <txtFileVersion>beta</txtFileVersion>
     <fileDescription>BFME ResFix</fileDescription>
     <copyright>2024 jcoester</copyright>
-    <productVersion>0.8.4.0</productVersion>
+    <productVersion>0.9.0.0</productVersion>
     <txtProductVersion>beta</txtProductVersion>
     <productName>BFME ResFix</productName>
     <companyName>https://github.com/jcoester/bfme-resfix/releases</companyName>
