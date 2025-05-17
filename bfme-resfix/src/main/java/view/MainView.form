@@ -38,12 +38,12 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
           </nested-form>
-          <nested-form id="abfd" form-file="view/GameView.form" binding="gameView2" default-binding="true">
+          <nested-form id="abfd" form-file="view/GameView.form" binding="gameView2" default-binding="false">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
           </nested-form>
-          <nested-form id="478d2" form-file="view/GameView.form" binding="gameView3" default-binding="true">
+          <nested-form id="478d2" form-file="view/GameView.form" binding="gameView3" default-binding="false">
             <constraints>
               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
